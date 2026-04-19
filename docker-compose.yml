@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16
+    container_name: u_alchemika_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: u_alchemika
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d u_alchemika"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:

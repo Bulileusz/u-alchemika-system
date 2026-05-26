@@ -68,6 +68,7 @@ room       M ──── N  amenities       (via room_amenities, CASCADE obie s
 | `core_room` | `room_slug_idx` na `slug` | Wyszukiwanie pokoi po URL |
 | `core_inquiry` | `inquiry_status_idx` na `status` | Filtrowanie zapytań po statusie (panel admin) |
 | `core_inquiry` | `inquiry_email_idx` na `email` | Wyszukiwanie zapytań po emailu klienta |
+| `core_inquiry` | `inquiry_created_at_idx` na `created_at` | Sortowanie zapytań chronologicznie (dodany w migracji 0003) |
 
 ---
 
@@ -162,9 +163,10 @@ docker exec -it u_alchemika_web python manage.py test
 
 Diagram encji dostępny w katalogu [`erd/`](erd/).
 
-**Do uzupełnienia:** Eksport z dbdiagram.io jako `erd/erd.png` i `erd/schema.dbml`.
+- **Źródło:** [`erd/schema.dbml`](erd/schema.dbml) — plik DBML do wklejenia w [dbdiagram.io](https://dbdiagram.io/d)
+- **Eksport:** `erd/erd.png` — wygenerowany diagram (PNG)
 
-Encje do zamodelowania w narzędziu:
+Encje na diagramie (9 tabel):
 - `auth_user` (Django built-in — blok zewnętrzny)
 - `core_room`, `core_roomimage`, `core_amenity`, `core_roomamenity`
 - `core_inquiry`, `core_auditlog`

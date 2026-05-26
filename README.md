@@ -1,83 +1,89 @@
 # U Alchemika System
 
-Projekt realizowany w ramach przedmiotow:
-- Projektowanie i programowanie systemow internetowych I
-- Projektowanie systemow baz danych
+Projekt realizowany w ramach przedmiotów:
+- Projektowanie i programowanie systemów internetowych I
+- Projektowanie systemów baz danych
 
-Repozytorium zawiera warstwe bazodanowa systemu dla obiektu noclegowego "U Alchemika". Na obecnym etapie projekt obejmuje konfiguracje PostgreSQL w Dockerze, bazowy schemat danych oraz pomocnicze pliki SQL do testow i dalszego rozwoju.
+System obsługi obiektu noclegowego „U Alchemika" — aplikacja webowa Django z bazą PostgreSQL.
 
 ## Technologie
 
+- Python 3.12 + Django 4.2
 - PostgreSQL 16
 - Docker Compose
 
 ## Struktura repozytorium
 
-- `database/init` - skrypty inicjalizujace strukture bazy
-- `database/seeds` - przykladowe dane testowe
-- `docs/psbd` - dokumentacja projektu bazodanowego
-- `sql` - pomocnicze zapytania SQL do testow
-- `docker-compose.yml` - konfiguracja kontenera PostgreSQL
+```
+u-alchemika-system/
+├── backend/               — aplikacja Django
+│   ├── config/            — ustawienia projektu (settings.py, urls.py)
+│   └── apps/
+│       ├── core/          — pokoje, udogodnienia, zapytania, logi
+│       └── content/       — posty, atrakcje
+├── database/
+│   ├── init/001_init.sql  — historyczny prototyp schematu (artefakt)
+│   └── seeds/             — historyczne dane testowe (artefakt)
+├── docs/psbd/             — dokumentacja bazy danych i ERD
+└── docker-compose.yml     — konfiguracja serwisów db + web
+```
 
 ## Wymagania
 
-- Docker Desktop lub silnik Docker z obsluga `docker compose`
+- Docker Desktop z obsługą `docker compose`
 
 ## Uruchomienie projektu
 
-1. Uruchom baze danych:
-
 ```bash
-docker compose up -d
+# 1. Uruchom kontenery (buduje obraz Django i startuje db + web)
+docker compose up --build -d
+
+# 2. Sprawdź logi — migracje Django powinny przejść bez błędów
+docker logs u_alchemika_web
+
+# 3. Załaduj dane testowe
+docker exec -it u_alchemika_web python manage.py loaddata seed
+
+# 4. Utwórz konto administratora
+docker exec -it u_alchemika_web python manage.py createsuperuser
 ```
 
-2. Sprawdz stan kontenera:
+Panel administracyjny: **http://localhost:8000/admin/**
+
+## Migracje
 
 ```bash
-docker ps
+# Sprawdź stan migracji
+docker exec -it u_alchemika_web python manage.py showmigrations
+
+# Cofnij ostatnią migrację core (demo rollbacku)
+docker exec -it u_alchemika_web python manage.py migrate core 0002
+
+# Przywróć do HEAD
+docker exec -it u_alchemika_web python manage.py migrate core
 ```
 
-3. Odczytaj logi bazy:
+## Weryfikacja tabel w bazie
 
 ```bash
-docker logs u_alchemika_db
+docker exec -it u_alchemika_db psql -U postgres -d u_alchemika -c "\dt"
 ```
-
-4. Polacz sie z PostgreSQL:
-
-```bash
-docker exec -it u_alchemika_db psql -U postgres -d u_alchemika
-```
-
-## Weryfikacja schematu
-
-Lista tabel po poprawnej inicjalizacji:
-
-```bash
-docker exec -it u_alchemika_db psql -U postgres -d u_alchemika -c "\\dt"
-```
-
-Oczekiwane tabele:
-- `amenities`
-- `attractions`
-- `audit_logs`
-- `inquiries`
-- `posts`
-- `roles`
-- `room_amenities`
-- `room_images`
-- `rooms`
-- `users`
 
 ## Restart na czysto
 
-Jesli chcesz odtworzyc baze od zera i ponownie wykonac skrypt `001_init.sql`, usun kontener i wolumen:
-
 ```bash
 docker compose down --volumes --remove-orphans
-docker compose up -d
+docker compose up --build -d
 ```
 
-## Zmienne srodowiskowe
+## Testy
 
-Przykladowe wartosci znajduja sie w pliku `.env.example`. Na tym etapie `docker-compose.yml` korzysta z wartosci zapisanych bezposrednio w konfiguracji, ale plik pozostaje gotowy do dalszego rozwoju projektu.
+```bash
+docker exec -it u_alchemika_web python manage.py test
+```
+
+## Zmienne środowiskowe
+
+Plik `.env.example` zawiera wzorzec zmiennych. Serwisy Docker korzystają z wartości zdefiniowanych bezpośrednio w `docker-compose.yml` (sekcja `environment`) — nie jest wymagane tworzenie `.env` do uruchomienia przez Docker.
+
+Do lokalnego uruchomienia poza Dockerem skopiuj `.env.example` → `.env` i dostosuj wartości.

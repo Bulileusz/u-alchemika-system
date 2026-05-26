@@ -1,0 +1,233 @@
+[
+  {
+    "model": "core.amenity",
+    "pk": 1,
+    "fields": { "name": "WiFi", "icon": "wifi" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 2,
+    "fields": { "name": "Parking", "icon": "local_parking" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 3,
+    "fields": { "name": "Śniadanie w cenie", "icon": "free_breakfast" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 4,
+    "fields": { "name": "Klimatyzacja", "icon": "ac_unit" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 5,
+    "fields": { "name": "Telewizor", "icon": "tv" }
+  },
+  {
+    "model": "core.room",
+    "pk": 1,
+    "fields": {
+      "name": "Pokój Bursztynowy",
+      "slug": "pokoj-bursztynowy",
+      "description": "Przytulny pokój dwuosobowy z widokiem na ogród. Wyposażony w łóżko małżeńskie, biurko i łazienkę z prysznicem.",
+      "capacity": 2,
+      "base_price": "180.00",
+      "is_active": true,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.room",
+    "pk": 2,
+    "fields": {
+      "name": "Pokój Złoty",
+      "slug": "pokoj-zloty",
+      "description": "Przestronny pokój rodzinny dla 4 osób. Dwa osobne pokoje połączone łazienką z wanną i prysznicem.",
+      "capacity": 4,
+      "base_price": "320.00",
+      "is_active": true,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.room",
+    "pk": 3,
+    "fields": {
+      "name": "Pokój Srebrny",
+      "slug": "pokoj-srebrny",
+      "description": "Jednoosobowy pokój dla gości podróżujących samotnie. Kompaktowy i funkcjonalny, z balkonem.",
+      "capacity": 1,
+      "base_price": "120.00",
+      "is_active": false,
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.roomimage",
+    "pk": 1,
+    "fields": {
+      "room": 1,
+      "image_url": "https://placehold.co/800x600?text=Pokój+Bursztynowy",
+      "alt_text": "Pokój Bursztynowy — widok główny",
+      "display_order": 1
+    }
+  },
+  {
+    "model": "core.roomimage",
+    "pk": 2,
+    "fields": {
+      "room": 1,
+      "image_url": "https://placehold.co/800x600?text=Łazienka",
+      "alt_text": "Pokój Bursztynowy — łazienka",
+      "display_order": 2
+    }
+  },
+  {
+    "model": "core.roomimage",
+    "pk": 3,
+    "fields": {
+      "room": 2,
+      "image_url": "https://placehold.co/800x600?text=Pokój+Złoty",
+      "alt_text": "Pokój Złoty — widok ogólny",
+      "display_order": 1
+    }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 1,
+    "fields": { "room": 1, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 2,
+    "fields": { "room": 1, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 3,
+    "fields": { "room": 1, "amenity": 5 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 4,
+    "fields": { "room": 2, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 5,
+    "fields": { "room": 2, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 6,
+    "fields": { "room": 2, "amenity": 3 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 7,
+    "fields": { "room": 2, "amenity": 4 }
+  },
+  {
+    "model": "core.inquiry",
+    "pk": 1,
+    "fields": {
+      "room": 1,
+      "full_name": "Jan Kowalski",
+      "email": "jan.kowalski@example.com",
+      "phone": "+48 600 100 200",
+      "date_from": "2026-07-10",
+      "date_to": "2026-07-14",
+      "guests": 2,
+      "message": "Dzień dobry, chciałbym zarezerwować pokój dla dwóch osób na 4 noce w lipcu.",
+      "status": "replied",
+      "created_at": "2026-05-10T09:15:00Z"
+    }
+  },
+  {
+    "model": "core.inquiry",
+    "pk": 2,
+    "fields": {
+      "room": 2,
+      "full_name": "Anna Nowak",
+      "email": "anna.nowak@example.com",
+      "phone": "+48 700 200 300",
+      "date_from": "2026-08-01",
+      "date_to": "2026-08-07",
+      "guests": 4,
+      "message": "Pytam o dostępność pokoju rodzinnego na tydzień w sierpniu. Czy jest możliwość dostawki dla dziecka?",
+      "status": "new",
+      "created_at": "2026-05-18T14:30:00Z"
+    }
+  },
+  {
+    "model": "core.inquiry",
+    "pk": 3,
+    "fields": {
+      "room": null,
+      "full_name": "Piotr Wiśniewski",
+      "email": "piotr@example.com",
+      "phone": "",
+      "date_from": null,
+      "date_to": null,
+      "guests": null,
+      "message": "Witam, czy obiekt oferuje noclegi w weekend sylwestrowy? Proszę o informację o dostępności i cenach.",
+      "status": "closed",
+      "created_at": "2026-04-02T11:00:00Z"
+    }
+  },
+  {
+    "model": "content.post",
+    "pk": 1,
+    "fields": {
+      "title": "Sezon letni 2026 — sprawdź naszą ofertę",
+      "slug": "sezon-letni-2026",
+      "content": "Zapraszamy na wypoczynek w obiekcie U Alchemika w sezonie letnim 2026. Oferujemy wyjątkowe ceny dla rodzin oraz pary. Okolica zachwyca zielonymi szlakami i lokalnymi atrakcjami.",
+      "is_published": true,
+      "published_at": "2026-04-15T08:00:00Z",
+      "created_at": "2026-04-15T08:00:00Z"
+    }
+  },
+  {
+    "model": "content.post",
+    "pk": 2,
+    "fields": {
+      "title": "Nowe udogodnienia w pokojach",
+      "slug": "nowe-udogodnienia-2026",
+      "content": "Informujemy, że w ramach modernizacji obiektu wszystkie pokoje zostały wyposażone w nowe telewizory Smart TV oraz klimatyzację.",
+      "is_published": false,
+      "published_at": null,
+      "created_at": "2026-05-20T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 1,
+    "fields": {
+      "name": "Szlak Orlich Gniazd",
+      "description": "Malowniczy szlak turystyczny prowadzący przez ruiny średniowiecznych zamków na Jurze Krakowsko-Częstochowskiej. Długość około 164 km.",
+      "location_name": "Jura Krakowsko-Częstochowska",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 2,
+    "fields": {
+      "name": "Jezioro Poraj",
+      "description": "Sztuczne jezioro w pobliżu Myszków idealne na kąpiele i sporty wodne. Popularne miejsce wypadów jednodniowych.",
+      "location_name": "Poraj, woj. śląskie",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 3,
+    "fields": {
+      "name": "Zamek Ogrodzieniec",
+      "description": "Ruiny gotyckiego zamku z XIV wieku, jedna z największych atrakcji turystycznych Jury Krakowsko-Częstochowskiej.",
+      "location_name": "Ogrodzieniec",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  }
+]

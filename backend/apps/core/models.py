@@ -23,6 +23,7 @@ class Room(models.Model):
     base_price = models.DecimalField(max_digits=10, decimal_places=2)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     amenities = models.ManyToManyField(Amenity, through='RoomAmenity', blank=True)
 
     class Meta:
@@ -90,6 +91,7 @@ class Inquiry(models.Model):
         indexes = [
             models.Index(fields=['status'], name='inquiry_status_idx'),
             models.Index(fields=['email'], name='inquiry_email_idx'),
+            models.Index(fields=['created_at'], name='inquiry_created_at_idx'),
         ]
 
     def clean(self):

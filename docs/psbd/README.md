@@ -159,6 +159,44 @@ docker exec -it u_alchemika_web python manage.py test
 
 ---
 
+## Scenariusz prezentacji
+
+1. Pokazać ERD z pliku `docs/psbd/erd/erd.png` i wskazać główne encje: pokoje, udogodnienia, zapytania, log audytu.
+2. Pokazać migracje: `docker exec -it u_alchemika_web python manage.py showmigrations`.
+3. Załadować dane testowe: `docker exec -it u_alchemika_web python manage.py loaddata seed`.
+4. Wejść do panelu admina i pokazać listę pokoi oraz zapytań.
+5. Uruchomić testy: `docker exec -it u_alchemika_web python manage.py test`.
+6. W psql uruchomić przykład `EXPLAIN ANALYZE` z pliku `sql/queries.sql`.
+
+---
+
+## EXPLAIN ANALYZE
+
+Analizowane zapytanie:
+
+```sql
+EXPLAIN ANALYZE
+SELECT id, full_name, email, status, created_at
+FROM core_inquiry
+WHERE status = 'new'
+ORDER BY created_at DESC;
+```
+
+Wynik z lokalnego uruchomienia. Dla małej bazy testowej PostgreSQL wybrał `Seq Scan`, bo tabela ma tylko kilka rekordów; indeks `inquiry_status_idx` ma sens przy większej liczbie zapytań.
+
+```text
+Sort  (cost=1.05..1.05 rows=1 width=928) (actual time=0.031..0.031 rows=1 loops=1)
+  Sort Key: created_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  ->  Seq Scan on core_inquiry  (cost=0.00..1.04 rows=1 width=928) (actual time=0.011..0.012 rows=1 loops=1)
+        Filter: ((status)::text = 'new'::text)
+        Rows Removed by Filter: 2
+Planning Time: 0.298 ms
+Execution Time: 0.054 ms
+```
+
+---
+
 ## ERD
 
 Diagram encji dostępny w katalogu [`erd/`](erd/).

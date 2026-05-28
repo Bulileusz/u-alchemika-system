@@ -1,5 +1,25 @@
 [
   {
+    "model": "core.propertyinfo",
+    "pk": 1,
+    "fields": {
+      "name": "Agroturystyka U Alchemika",
+      "address": "Jasna Góra, ul. Górska 3, 59-921",
+      "phone": "+48 516 091 706",
+      "email": "alchemik980@gmail.com",
+      "booking_url": "https://www.booking.com/hotel/pl/u-alchemika.pl.html",
+      "facebook_url": "https://www.facebook.com/profile.php?id=100078945456420",
+      "description": "Witamy serdecznie w naszym rodzinnym pensjonacie agroturystycznym usytuowanym u podnóża gór Izerskich. Znajdujemy się w typowym architektonicznie dla naszego regionu ponad stuletnim domu na Jasnej Górze, w otoczeniu łąk, pól i lasów. Obiekt wyróżnia się starym budownictwem — jest to ponad 220-letni zabytek o budowie domu przysłupowego. Posiadamy pole lawendy, z którego tworzymy własne wyroby takie jak zapachy oraz olejki. Jest to typowa agroturystyka z dużą ilością zwierząt: psy, króliki, koty, kury, kaczki i bażanty.",
+      "check_in": "14:00–22:00",
+      "check_out": "do 11:00",
+      "pets_policy": "Zwierzęta są jak najbardziej akceptowane. W razie pytań prosimy o kontakt telefoniczny z właścicielem.",
+      "parking_info": "Darmowy parking na miejscu agroturystyki.",
+      "payment_info": "Akceptujemy płatność kartą, BLIK oraz gotówką.",
+      "breakfast_info": "Śniadań nie oferujemy. Do dyspozycji gości jest wspólny aneks kuchenny z pełnym wyposażeniem: garnki, patelnie, kieliszki, szklanki, ekspres do kawy, lodówka.",
+      "cancellation_policy": "Anulowanie rezerwacji możliwe do 2 tygodni przed przyjazdem. W nagłych przypadkach prosimy o kontakt z właścicielem."
+    }
+  },
+  {
     "model": "core.amenity",
     "pk": 1,
     "fields": { "name": "WiFi", "icon": "wifi" }
@@ -7,30 +27,40 @@
   {
     "model": "core.amenity",
     "pk": 2,
-    "fields": { "name": "Parking", "icon": "local_parking" }
+    "fields": { "name": "Darmowy parking", "icon": "local_parking" }
   },
   {
     "model": "core.amenity",
     "pk": 3,
-    "fields": { "name": "Śniadanie w cenie", "icon": "free_breakfast" }
+    "fields": { "name": "Aneks kuchenny", "icon": "kitchen" }
   },
   {
     "model": "core.amenity",
     "pk": 4,
-    "fields": { "name": "Klimatyzacja", "icon": "ac_unit" }
+    "fields": { "name": "Smart TV (Netflix, Disney+)", "icon": "tv" }
   },
   {
     "model": "core.amenity",
     "pk": 5,
-    "fields": { "name": "Telewizor", "icon": "tv" }
+    "fields": { "name": "Prywatna łazienka", "icon": "bathroom" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 6,
+    "fields": { "name": "Ekspres do kawy", "icon": "coffee" }
+  },
+  {
+    "model": "core.amenity",
+    "pk": 7,
+    "fields": { "name": "Ręczniki w cenie", "icon": "dry_cleaning" }
   },
   {
     "model": "core.room",
     "pk": 1,
     "fields": {
-      "name": "Pokój Bursztynowy",
-      "slug": "pokoj-bursztynowy",
-      "description": "Przytulny pokój dwuosobowy z widokiem na ogród. Wyposażony w łóżko małżeńskie, biurko i łazienkę z prysznicem.",
+      "name": "Pokój Lawendowy",
+      "slug": "pokoj-lawendowy",
+      "description": "Przytulny pokój dwuosobowy z widokiem na pole lawendy. Wyposażony w łóżko małżeńskie, prywatną łazienkę z kabiną prysznicową oraz dostęp do wspólnego aneksu kuchennego.",
       "capacity": 2,
       "base_price": "180.00",
       "is_active": true,
@@ -42,11 +72,11 @@
     "model": "core.room",
     "pk": 2,
     "fields": {
-      "name": "Pokój Złoty",
-      "slug": "pokoj-zloty",
-      "description": "Przestronny pokój rodzinny dla 4 osób. Dwa osobne pokoje połączone łazienką z wanną i prysznicem.",
-      "capacity": 4,
-      "base_price": "320.00",
+      "name": "Pokój Górski",
+      "slug": "pokoj-gorski",
+      "description": "Pokój dwuosobowy z widokiem na Góry Izerskie. Idealne miejsce na romantyczny wypoczynek lub spokojny pobyt w ciszy natury.",
+      "capacity": 2,
+      "base_price": "180.00",
       "is_active": true,
       "created_at": "2025-01-01T10:00:00Z",
       "updated_at": "2025-01-01T10:00:00Z"
@@ -56,12 +86,40 @@
     "model": "core.room",
     "pk": 3,
     "fields": {
-      "name": "Pokój Srebrny",
-      "slug": "pokoj-srebrny",
-      "description": "Jednoosobowy pokój dla gości podróżujących samotnie. Kompaktowy i funkcjonalny, z balkonem.",
-      "capacity": 1,
-      "base_price": "120.00",
-      "is_active": false,
+      "name": "Pokój Leśny",
+      "slug": "pokoj-lesny",
+      "description": "Pokój dwuosobowy z widokiem na otaczające lasy i łąki. Spokój i cisza gwarantowane — idealne oderwanie od miejskiego zgiełku.",
+      "capacity": 2,
+      "base_price": "170.00",
+      "is_active": true,
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.room",
+    "pk": 4,
+    "fields": {
+      "name": "Pokój Izerski",
+      "slug": "pokoj-izerski",
+      "description": "Pokój dwuosobowy w zabytkowym domu przysłupowym. Klimatyczne wnętrze z elementami regionalnej architektury, prywatna łazienka.",
+      "capacity": 2,
+      "base_price": "190.00",
+      "is_active": true,
+      "created_at": "2025-01-01T10:00:00Z",
+      "updated_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "core.room",
+    "pk": 5,
+    "fields": {
+      "name": "Apartament Rodzinny",
+      "slug": "apartament-rodzinny",
+      "description": "Przestronny apartament dla rodzin z dziećmi lub większych grup — do 6 osób. Dwa osobne pomieszczenia sypialne, łazienka z wanną i prysznicem oraz dostęp do pełnego aneksu kuchennego. Zwierzęta mile widziane.",
+      "capacity": 6,
+      "base_price": "380.00",
+      "is_active": true,
       "created_at": "2025-01-01T10:00:00Z",
       "updated_at": "2025-01-01T10:00:00Z"
     }
@@ -71,8 +129,8 @@
     "pk": 1,
     "fields": {
       "room": 1,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Bursztynowy",
-      "alt_text": "Pokój Bursztynowy — widok główny",
+      "image_url": "https://placehold.co/800x600?text=Pokój+Lawendowy",
+      "alt_text": "Pokój Lawendowy — widok główny",
       "display_order": 1
     }
   },
@@ -80,19 +138,39 @@
     "model": "core.roomimage",
     "pk": 2,
     "fields": {
-      "room": 1,
-      "image_url": "https://placehold.co/800x600?text=Łazienka",
-      "alt_text": "Pokój Bursztynowy — łazienka",
-      "display_order": 2
+      "room": 2,
+      "image_url": "https://placehold.co/800x600?text=Pokój+Górski",
+      "alt_text": "Pokój Górski — widok główny",
+      "display_order": 1
     }
   },
   {
     "model": "core.roomimage",
     "pk": 3,
     "fields": {
-      "room": 2,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Złoty",
-      "alt_text": "Pokój Złoty — widok ogólny",
+      "room": 3,
+      "image_url": "https://placehold.co/800x600?text=Pokój+Leśny",
+      "alt_text": "Pokój Leśny — widok główny",
+      "display_order": 1
+    }
+  },
+  {
+    "model": "core.roomimage",
+    "pk": 4,
+    "fields": {
+      "room": 4,
+      "image_url": "https://placehold.co/800x600?text=Pokój+Izerski",
+      "alt_text": "Pokój Izerski — widok główny",
+      "display_order": 1
+    }
+  },
+  {
+    "model": "core.roomimage",
+    "pk": 5,
+    "fields": {
+      "room": 5,
+      "image_url": "https://placehold.co/800x600?text=Apartament+Rodzinny",
+      "alt_text": "Apartament Rodzinny — widok główny",
       "display_order": 1
     }
   },
@@ -109,27 +187,132 @@
   {
     "model": "core.roomamenity",
     "pk": 3,
-    "fields": { "room": 1, "amenity": 5 }
+    "fields": { "room": 1, "amenity": 3 }
   },
   {
     "model": "core.roomamenity",
     "pk": 4,
-    "fields": { "room": 2, "amenity": 1 }
+    "fields": { "room": 1, "amenity": 4 }
   },
   {
     "model": "core.roomamenity",
     "pk": 5,
-    "fields": { "room": 2, "amenity": 2 }
+    "fields": { "room": 1, "amenity": 5 }
   },
   {
     "model": "core.roomamenity",
     "pk": 6,
-    "fields": { "room": 2, "amenity": 3 }
+    "fields": { "room": 1, "amenity": 6 }
   },
   {
     "model": "core.roomamenity",
     "pk": 7,
+    "fields": { "room": 1, "amenity": 7 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 8,
+    "fields": { "room": 2, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 9,
+    "fields": { "room": 2, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 10,
+    "fields": { "room": 2, "amenity": 3 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 11,
     "fields": { "room": 2, "amenity": 4 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 12,
+    "fields": { "room": 2, "amenity": 5 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 13,
+    "fields": { "room": 3, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 14,
+    "fields": { "room": 3, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 15,
+    "fields": { "room": 3, "amenity": 3 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 16,
+    "fields": { "room": 3, "amenity": 5 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 17,
+    "fields": { "room": 4, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 18,
+    "fields": { "room": 4, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 19,
+    "fields": { "room": 4, "amenity": 4 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 20,
+    "fields": { "room": 4, "amenity": 5 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 21,
+    "fields": { "room": 4, "amenity": 6 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 22,
+    "fields": { "room": 5, "amenity": 1 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 23,
+    "fields": { "room": 5, "amenity": 2 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 24,
+    "fields": { "room": 5, "amenity": 3 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 25,
+    "fields": { "room": 5, "amenity": 4 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 26,
+    "fields": { "room": 5, "amenity": 5 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 27,
+    "fields": { "room": 5, "amenity": 6 }
+  },
+  {
+    "model": "core.roomamenity",
+    "pk": 28,
+    "fields": { "room": 5, "amenity": 7 }
   },
   {
     "model": "core.inquiry",
@@ -142,7 +325,7 @@
       "date_from": "2026-07-10",
       "date_to": "2026-07-14",
       "guests": 2,
-      "message": "Dzień dobry, chciałbym zarezerwować pokój dla dwóch osób na 4 noce w lipcu.",
+      "message": "Dzień dobry, chciałbym zarezerwować pokój dla dwóch osób na 4 noce w lipcu. Czy możliwa jest rezerwacja bezpośrednia?",
       "status": "replied",
       "created_at": "2026-05-10T09:15:00Z"
     }
@@ -151,14 +334,14 @@
     "model": "core.inquiry",
     "pk": 2,
     "fields": {
-      "room": 2,
+      "room": 5,
       "full_name": "Anna Nowak",
       "email": "anna.nowak@example.com",
       "phone": "+48 700 200 300",
       "date_from": "2026-08-01",
       "date_to": "2026-08-07",
-      "guests": 4,
-      "message": "Pytam o dostępność pokoju rodzinnego na tydzień w sierpniu. Czy jest możliwość dostawki dla dziecka?",
+      "guests": 5,
+      "message": "Pytam o dostępność apartamentu rodzinnego na tydzień w sierpniu. Przyjedziemy z trójką dzieci i psem — czy to nie problem?",
       "status": "new",
       "created_at": "2026-05-18T14:30:00Z"
     }
@@ -174,7 +357,7 @@
       "date_from": null,
       "date_to": null,
       "guests": null,
-      "message": "Witam, czy obiekt oferuje noclegi w weekend sylwestrowy? Proszę o informację o dostępności i cenach.",
+      "message": "Witam, czy obiekt oferuje noclegi w sylwestra? Chciałbym przyjechać z grupą 6 osób. Proszę o informację o dostępności.",
       "status": "closed",
       "created_at": "2026-04-02T11:00:00Z"
     }
@@ -183,9 +366,9 @@
     "model": "content.post",
     "pk": 1,
     "fields": {
-      "title": "Sezon letni 2026 — sprawdź naszą ofertę",
+      "title": "Sezon letni 2026 — zapraszamy w Góry Izerskie",
       "slug": "sezon-letni-2026",
-      "content": "Zapraszamy na wypoczynek w obiekcie U Alchemika w sezonie letnim 2026. Oferujemy wyjątkowe ceny dla rodzin oraz pary. Okolica zachwyca zielonymi szlakami i lokalnymi atrakcjami.",
+      "content": "Zapraszamy na niezapomniany wypoczynek w agroturystyce U Alchemika w sercu Gór Izerskich. Oferujemy 4 przytulne pokoje dwuosobowe oraz przestronny apartament rodzinny dla do 6 osób. Otaczają nas łąki, lasy i pole lawendy — idealne miejsce na oderwanie się od codzienności.",
       "is_published": true,
       "published_at": "2026-04-15T08:00:00Z",
       "created_at": "2026-04-15T08:00:00Z"
@@ -195,21 +378,21 @@
     "model": "content.post",
     "pk": 2,
     "fields": {
-      "title": "Nowe udogodnienia w pokojach",
-      "slug": "nowe-udogodnienia-2026",
-      "content": "Informujemy, że w ramach modernizacji obiektu wszystkie pokoje zostały wyposażone w nowe telewizory Smart TV oraz klimatyzację.",
-      "is_published": false,
-      "published_at": null,
-      "created_at": "2026-05-20T10:00:00Z"
+      "title": "Trójstyk granic — atrakcja na wyciągnięcie ręki",
+      "slug": "trojstyk-granic-atrakcja",
+      "content": "Mieszkając u nas, możesz w jeden dzień odwiedzić trzy kraje: Polskę, Czechy i Niemcy. Trójstyk graniczny w okolicy to wyjątkowe miejsce, które warto zobaczyć. Polecamy też czeską restaurację Camelot w Hradku nad Nisou oraz piwiarnię we Frydlancie po stronie niemieckiej.",
+      "is_published": true,
+      "published_at": "2026-05-01T08:00:00Z",
+      "created_at": "2026-05-01T08:00:00Z"
     }
   },
   {
     "model": "content.attraction",
     "pk": 1,
     "fields": {
-      "name": "Szlak Orlich Gniazd",
-      "description": "Malowniczy szlak turystyczny prowadzący przez ruiny średniowiecznych zamków na Jurze Krakowsko-Częstochowskiej. Długość około 164 km.",
-      "location_name": "Jura Krakowsko-Częstochowska",
+      "name": "Czeska Szwajcaria",
+      "description": "Malowniczy park narodowy po czeskiej stronie granicy, znany z piaskowcowych skał, wąwozów i romantycznych zamków. Zaledwie kilkadziesiąt minut jazdy od agroturystyki.",
+      "location_name": "Czechy (okolice Děčína)",
       "created_at": "2025-01-01T10:00:00Z"
     }
   },
@@ -217,9 +400,9 @@
     "model": "content.attraction",
     "pk": 2,
     "fields": {
-      "name": "Jezioro Poraj",
-      "description": "Sztuczne jezioro w pobliżu Myszków idealne na kąpiele i sporty wodne. Popularne miejsce wypadów jednodniowych.",
-      "location_name": "Poraj, woj. śląskie",
+      "name": "Jezioro Bertsdorf",
+      "description": "Urokliwe jezioro po stronie niemieckiej, idealne na spacery i odpoczynek nad wodą. Popularne wśród rowerzystów i rodzin z dziećmi.",
+      "location_name": "Bertsdorf-Hörnitz, Niemcy",
       "created_at": "2025-01-01T10:00:00Z"
     }
   },
@@ -227,9 +410,79 @@
     "model": "content.attraction",
     "pk": 3,
     "fields": {
-      "name": "Zamek Ogrodzieniec",
-      "description": "Ruiny gotyckiego zamku z XIV wieku, jedna z największych atrakcji turystycznych Jury Krakowsko-Częstochowskiej.",
-      "location_name": "Ogrodzieniec",
+      "name": "Kamienne Miasto",
+      "description": "Niezwykłe naturalne formacje skalne w Górach Izerskich — jeden z najciekawszych geologicznych fenomenów regionu. Świetna destynacja na krótką wycieczkę pieszą.",
+      "location_name": "Góry Izerskie",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 4,
+    "fields": {
+      "name": "Zamek Frydlant",
+      "description": "Jeden z najlepiej zachowanych zamków w Czechach, zbudowany w XIII wieku. Zwiedzanie wnętrz, wystawy i piękne widoki na okolicę. Niedaleko zamku słynna piwiarnia.",
+      "location_name": "Frydlant, Czechy",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 5,
+    "fields": {
+      "name": "Klasztor i zamek Oybin",
+      "description": "Ruiny gotyckiego zamku i klasztoru na szczycie skały bazaltowej w Niemczech. Wyjątkowe miejsce z panoramicznym widokiem na Góry Łużyckie i Izerskie.",
+      "location_name": "Oybin, Niemcy",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 6,
+    "fields": {
+      "name": "Stoki narciarskie — Świeradów-Zdrój",
+      "description": "Popularny kurort narciarski w Górach Izerskich. Trasy dla początkujących i zaawansowanych, wyciągi, szkółka narciarska. W sezonie letnim doskonały punkt startowy wycieczek górskich.",
+      "location_name": "Świeradów-Zdrój",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 7,
+    "fields": {
+      "name": "Trójstyk granic PL–CZ–DE",
+      "description": "Punkt na mapie, gdzie stykają się granice Polski, Czech i Niemiec. Popularna atrakcja turystyczna — w jednym miejscu możesz stać w trzech krajach jednocześnie.",
+      "location_name": "Porajów / Zittau",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 8,
+    "fields": {
+      "name": "Szlaki piesze — Góry Izerskie",
+      "description": "Rozbudowana sieć szlaków pieszych i rowerowych w bezpośrednim sąsiedztwie agroturystyki. Polecamy trasę na Guślarza z panoramicznym widokiem. Na miejscu dostępna mapa szlaków rowerowych.",
+      "location_name": "Góry Izerskie",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 9,
+    "fields": {
+      "name": "Restauracja Dom Zegarmistrza",
+      "description": "Polecana przez właścicieli restauracja w Bogatyni. Smaczna, regionalna kuchnia w klimatycznym wnętrzu.",
+      "location_name": "Bogatynia",
+      "created_at": "2025-01-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "content.attraction",
+    "pk": 10,
+    "fields": {
+      "name": "Restauracja Camelot (kuchnia czeska)",
+      "description": "Świetna restauracja w Hradku nad Nisou tuż przy granicy czeskiej. Idealne miejsce żeby spróbować autentycznej kuchni czeskiej podczas wycieczki za granicę.",
+      "location_name": "Hradek nad Nisou, Czechy",
       "created_at": "2025-01-01T10:00:00Z"
     }
   }

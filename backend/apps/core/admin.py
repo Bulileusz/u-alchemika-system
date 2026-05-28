@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Amenity, AuditLog, Inquiry, Room, RoomAmenity, RoomImage
+from .models import Amenity, AuditLog, Inquiry, PropertyInfo, Room, RoomAmenity, RoomImage
 
 
 class RoomImageInline(admin.TabularInline):
@@ -35,6 +35,20 @@ class InquiryAdmin(admin.ModelAdmin):
     search_fields = ['full_name', 'email']
     list_editable = ['status']
     readonly_fields = ['created_at']
+
+
+@admin.register(PropertyInfo)
+class PropertyInfoAdmin(admin.ModelAdmin):
+    list_display = ['name', 'phone', 'email']
+    fieldsets = [
+        ('Dane kontaktowe', {'fields': ['name', 'address', 'phone', 'email']}),
+        ('Linki', {'fields': ['booking_url', 'facebook_url']}),
+        ('Opis', {'fields': ['description']}),
+        ('Informacje praktyczne', {'fields': [
+            'check_in', 'check_out', 'pets_policy',
+            'parking_info', 'payment_info', 'breakfast_info', 'cancellation_policy',
+        ]}),
+    ]
 
 
 @admin.register(AuditLog)

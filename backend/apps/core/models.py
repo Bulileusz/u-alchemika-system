@@ -102,6 +102,30 @@ class Inquiry(models.Model):
         return f'{self.full_name} ({self.get_status_display()})'
 
 
+class PropertyInfo(models.Model):
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=50)
+    email = models.EmailField()
+    booking_url = models.URLField(blank=True)
+    facebook_url = models.URLField(blank=True)
+    description = models.TextField(blank=True)
+    check_in = models.CharField(max_length=100, blank=True)
+    check_out = models.CharField(max_length=100, blank=True)
+    pets_policy = models.TextField(blank=True)
+    parking_info = models.TextField(blank=True)
+    payment_info = models.TextField(blank=True)
+    breakfast_info = models.TextField(blank=True)
+    cancellation_policy = models.TextField(blank=True)
+
+    class Meta:
+        verbose_name = 'Dane obiektu'
+        verbose_name_plural = 'Dane obiektu'
+
+    def __str__(self):
+        return self.name
+
+
 class AuditLog(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)
     action = models.CharField(max_length=100)

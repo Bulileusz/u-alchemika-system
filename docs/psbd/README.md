@@ -18,6 +18,7 @@ Projekt obejmuje zaprojektowanie i implementację relacyjnej bazy danych dla sys
 | `core_roomamenity` | Tabela łącząca pokoje z udogodnieniami | N:1 → room (CASCADE), N:1 → amenity (CASCADE) |
 | `core_inquiry` | Zapytania od klientów (formularz kontaktowy / zapytanie o nocleg) | N:1 → room (SET NULL on delete) |
 | `core_auditlog` | Log akcji administracyjnych | N:1 → auth_user (SET NULL on delete) |
+| `core_propertyinfo` | Dane obiektu: kontakt, adres, polityki, godziny zameldowania | — (samodzielna, singleton) |
 | `content_post` | Posty / aktualności | — |
 | `content_attraction` | Atrakcje w okolicy | — |
 | `auth_user` | Wbudowany model użytkownika Django | 1:N → audit_logs |
@@ -80,11 +81,15 @@ room       M ──── N  amenities       (via room_amenities, CASCADE obie s
 | `content/0001_initial` | Tworzenie tabel: Post, Attraction | `python manage.py migrate content zero` |
 | `core/0002_room_updated_at` | Dodanie pola `updated_at` do Room | `python manage.py migrate core 0001` |
 | `core/0003_inquiry_index_created_at` | Dodanie indeksu na `Inquiry.created_at` (optymalizacja) | `python manage.py migrate core 0002` |
+| `core/0004_propertyinfo` | Nowa tabela `PropertyInfo` — dane kontaktowe i polityki obiektu | `python manage.py migrate core 0003` |
 
 ### Przykłady rollbacku
 
 ```bash
-# Cofnięcie ostatniej migracji core (indeks created_at)
+# Cofnięcie ostatniej migracji core (PropertyInfo)
+python manage.py migrate core 0003
+
+# Cofnięcie indeksu created_at
 python manage.py migrate core 0002
 
 # Cofnięcie do stanu przed dodaniem updated_at
@@ -164,7 +169,7 @@ docker exec -it u_alchemika_web python manage.py test
 1. Pokazać ERD z pliku `docs/psbd/erd/erd.png` i wskazać główne encje: pokoje, udogodnienia, zapytania, log audytu.
 2. Pokazać migracje: `docker exec -it u_alchemika_web python manage.py showmigrations`.
 3. Załadować dane testowe: `docker exec -it u_alchemika_web python manage.py loaddata seed`.
-4. Wejść do panelu admina i pokazać listę pokoi oraz zapytań.
+4. Wejść do panelu admina i pokazać listę pokoi, zapytań oraz dane obiektu (PropertyInfo).
 5. Uruchomić testy: `docker exec -it u_alchemika_web python manage.py test`.
 6. W psql uruchomić przykład `EXPLAIN ANALYZE` z pliku `sql/queries.sql`.
 
@@ -204,8 +209,8 @@ Diagram encji dostępny w katalogu [`erd/`](erd/).
 - **Źródło:** [`erd/schema.dbml`](erd/schema.dbml) — plik DBML do wklejenia w [dbdiagram.io](https://dbdiagram.io/d)
 - **Eksport:** `erd/erd.png` — wygenerowany diagram (PNG)
 
-Encje na diagramie (9 tabel):
+Encje na diagramie (10 tabel):
 - `auth_user` (Django built-in — blok zewnętrzny)
 - `core_room`, `core_roomimage`, `core_amenity`, `core_roomamenity`
-- `core_inquiry`, `core_auditlog`
+- `core_inquiry`, `core_auditlog`, `core_propertyinfo`
 - `content_post`, `content_attraction`

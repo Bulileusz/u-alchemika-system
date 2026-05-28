@@ -101,6 +101,26 @@ Table core_auditlog {
   Note: 'Log akcji administracyjnych'
 }
 
+Table core_propertyinfo {
+  id bigint [pk, increment]
+  name varchar(200) [not null]
+  address varchar(255) [not null]
+  phone varchar(50) [not null]
+  email varchar(254) [not null]
+  booking_url varchar(200)
+  facebook_url varchar(200)
+  description text
+  check_in varchar(100)
+  check_out varchar(100)
+  pets_policy text
+  parking_info text
+  payment_info text
+  breakfast_info text
+  cancellation_policy text
+
+  Note: 'Dane kontaktowe i informacje praktyczne obiektu noclegowego'
+}
+
 // ----- App: content -----
 
 Table content_post {

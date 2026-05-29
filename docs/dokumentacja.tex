@@ -10,6 +10,9 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{graphicx}
+% Fallback dla grafik: dziala zarowno przy kompilacji z katalogu docs/,
+% jak i z katalogu glownego repozytorium (pdflatex docs/dokumentacja.tex).
+\graphicspath{{./}{docs/}{psbd/erd/}{docs/psbd/erd/}}
 \usepackage{hyperref}
 \usepackage{parskip}
 \usepackage{titlesec}
@@ -119,7 +122,7 @@
   \vspace*{2cm}
   {\LARGE\bfseries Akademia Techniczno-Humanistyczna \par}
   \vspace{0.5cm}
-  {\large Podstawy i systemy baz danych \par}
+  {\large Projektowanie systemów baz danych \par}
   \vspace{2.5cm}
 
   \rule{\linewidth}{0.5mm}
@@ -139,7 +142,7 @@
   \end{tabular}
 
   \vfill
-  {\small Projekt realizowany w ramach kursu \emph{Podstawy i systemy baz danych} \par}
+  {\small Projekt realizowany w ramach kursu \emph{Projektowanie systemów baz danych} \par}
 \end{titlepage}
 
 % ===================== SPIS TREŚCI =====================
@@ -368,7 +371,7 @@ python manage.py migrate content zero
 \texttt{name} & VARCHAR(150) & NOT NULL & Nazwa wyświetlana \\
 \texttt{slug} & VARCHAR(150) & UNIQUE, NOT NULL & Identyfikator URL \\
 \texttt{description} & TEXT & & Opis pokoju \\
-\texttt{capacity} & INTEGER & NOT NULL, $>0$ & Liczba gości \\
+\texttt{capacity} & INTEGER & NOT NULL, $\geq 0$ & Liczba gości \\
 \texttt{base\_price} & DECIMAL(10,2) & NOT NULL & Cena za dobę (PLN) \\
 \texttt{is\_active} & BOOLEAN & DEFAULT true & Flaga aktywności \\
 \texttt{created\_at} & TIMESTAMPTZ & NOT NULL, auto & Data utworzenia \\
@@ -459,7 +462,7 @@ zduplikowanym powiązaniom.
 \texttt{phone} & VARCHAR(50) & & Telefon \\
 \texttt{date\_from} & DATE & NULL & Data przyjazdu \\
 \texttt{date\_to} & DATE & NULL, $\geq$\texttt{date\_from} & Data wyjazdu \\
-\texttt{guests} & INTEGER & NULL, $>0$ & Liczba gości \\
+\texttt{guests} & INTEGER & NULL, $\geq 0$ & Liczba gości \\
 \texttt{message} & TEXT & NOT NULL & Treść wiadomości \\
 \texttt{status} & VARCHAR(30) & DEFAULT 'new' & Stan: new/replied/closed \\
 \texttt{created\_at} & TIMESTAMPTZ & NOT NULL, auto & Znacznik czasu \\
@@ -624,7 +627,10 @@ def clean(self):
 
 Dodatkowe walidacje wynikają z~typów pól Django:
 \begin{itemize}[nosep]
-  \item \texttt{PositiveIntegerField} -- gwarantuje \texttt{capacity $>$ 0} i~\texttt{guests $>$ 0},
+  \item \texttt{PositiveIntegerField} -- ogranicza \texttt{capacity} i~\texttt{guests}
+    do wartości nieujemnych ($\geq 0$); ograniczenie egzekwowane jest przez
+    walidator Django (\texttt{MinValueValidator}) na poziomie aplikacji, nie
+    przez ograniczenie \texttt{CHECK} w~bazie danych,
   \item \texttt{EmailField} -- wymusza poprawny format adresu e-mail,
   \item \texttt{DecimalField} -- przechowuje ceny z~dokładnością do 2~miejsc po przecinku.
 \end{itemize}
@@ -739,12 +745,17 @@ Fixture zawiera:
     WiFi, Darmowy parking, Aneks kuchenny, Smart TV (Netflix, Disney+),
     Prywatna łazienka, Ekspres do kawy, Ręczniki w~cenie.
 
-  \item \textbf{3 pokoje:}
+  \item \textbf{5 pokoi} (wraz z~5 zdjęciami i~28 powiązaniami z~udogodnieniami):
     \begin{itemize}[nosep]
       \item Pokój Lawendowy -- 2 osoby, 180~PLN/dobę,
       \item Pokój Górski -- 2 osoby, 180~PLN/dobę,
-      \item Pokój Leśny -- 2 osoby, 170~PLN/dobę.
+      \item Pokój Leśny -- 2 osoby, 170~PLN/dobę,
+      \item Pokój Izerski -- 2 osoby, 190~PLN/dobę,
+      \item Apartament Rodzinny -- 6 osób, 380~PLN/dobę.
     \end{itemize}
+
+  \item \textbf{3 przykładowe zapytania (Inquiry)}, \textbf{2 wpisy blogowe (Post)}
+    oraz \textbf{10 atrakcji turystycznych (Attraction)}.
 \end{itemize}
 
 % ===================== 9. TESTY I OPTYMALIZACJA =====================
@@ -941,7 +952,8 @@ Testy integracyjne & 3 \\
 
 Projekt realizuje kompletny cykl życia systemu bazodanowego:
 wybór i~konfigurację SZBD, iteracyjne projektowanie oparte na migracjach,
-implementację więzów integralności (CASCADE, SET NULL, UNIQUE, CHECK),
+implementację więzów integralności (CASCADE, SET NULL, UNIQUE)
+oraz walidacje biznesowe na poziomie aplikacji,
 graficzny interfejs CRUD, seedowanie danych testowych oraz testy
 weryfikujące poprawność operacji na bazie i~analizę wydajności zapytań.
 

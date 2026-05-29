@@ -13,7 +13,6 @@
 % Fallback dla grafik: dziala zarowno przy kompilacji z katalogu docs/,
 % jak i z katalogu glownego repozytorium (pdflatex docs/dokumentacja.tex).
 \graphicspath{{./}{docs/}{psbd/erd/}{docs/psbd/erd/}}
-\usepackage{hyperref}
 \usepackage{parskip}
 \usepackage{titlesec}
 \usepackage{array}
@@ -21,6 +20,9 @@
 \usepackage{enumitem}
 \usepackage{fancyhdr}
 \usepackage{lmodern}
+\usepackage{amssymb}
+% hyperref ladowany na koncu preambury, zeby uniknac konfliktow z innymi pakietami
+\usepackage{hyperref}
 
 \geometry{
   top=2.5cm,
@@ -153,7 +155,7 @@
 \section{Cel i zakres projektu}
 
 Celem projektu jest zaprojektowanie, implementacja i~prezentacja systemu bazodanowego
-dla obiektu agroturystycznego \textbf{„U Alchemika"} zlokalizowanego w Górach Izerskich
+dla obiektu agroturystycznego \textbf{„U Alchemika”} zlokalizowanego w Górach Izerskich
 (Jasna Góra, ul.~Górska~3, 59-921). System obsługuje:
 
 \begin{itemize}[nosep]
@@ -224,6 +226,9 @@ services:
       POSTGRES_PASSWORD: postgres
       DJANGO_SECRET_KEY: dev-secret-key-not-for-production
       DEBUG: "True"
+      DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+    volumes:
+      - ./backend:/app
     depends_on:
       db:
         condition: service_healthy
@@ -624,6 +629,9 @@ def clean(self):
             'Data wyjazdu musi byc pozniejsza niz data przyjazdu.'
         )
 \end{lstlisting}
+
+\noindent\textit{Dokładny komunikat w~kodzie źródłowym:}
+\texttt{'Data wyjazdu musi być późniejsza niż data przyjazdu.'}
 
 Dodatkowe walidacje wynikają z~typów pól Django:
 \begin{itemize}[nosep]

@@ -1,8 +1,10 @@
 # U Alchemika System
 
-Projekt realizowany w ramach przedmiotów:
+Projekt zaliczeniowy realizowany na uczelni **Collegium Witelona** w ramach przedmiotów:
 - Projektowanie i programowanie systemów internetowych I
 - Projektowanie systemów baz danych
+
+**Autorzy:** Maciej Bułhak, Małgorzata Bułhak, Hubert Olszak
 
 System obsługi obiektu noclegowego „U Alchemika" — aplikacja webowa Django z bazą PostgreSQL.
 

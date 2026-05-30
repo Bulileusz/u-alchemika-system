@@ -214,3 +214,8 @@ Encje na diagramie (10 tabel):
 - `core_room`, `core_roomimage`, `core_amenity`, `core_roomamenity`
 - `core_inquiry`, `core_auditlog`, `core_propertyinfo`
 - `content_post`, `content_attraction`
+
+---
+
+*Projekt zaliczeniowy — Collegium Witelona.*
+*Autorzy: Maciej Bułhak, Małgorzata Bułhak, Hubert Olszak.*

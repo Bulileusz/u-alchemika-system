@@ -21,6 +21,7 @@
 \usepackage{fancyhdr}
 \usepackage{lmodern}
 \usepackage{amssymb}
+\usepackage{float}
 % hyperref ladowany na koncu preambury, zeby uniknac konfliktow z innymi pakietami
 \usepackage{hyperref}
 
@@ -301,7 +302,7 @@ Attraction & content & Atrakcja turystyczna \\
 
 \subsection{Diagram ERD}
 
-\begin{figure}[ht]
+\begin{figure}[H]
   \centering
   \includegraphics[width=0.95\textwidth]{psbd/erd/erd.png}
   \caption{Diagram encji i~relacji (ERD) systemu U Alchemika}
@@ -316,7 +317,7 @@ zapis wszystkich zmian w~strukturze bazy danych.
 
 \subsection{Przegląd migracji}
 
-\begin{longtable}{p{0.25\linewidth}p{0.6\linewidth}}
+\begin{longtable}{p{0.38\linewidth}p{0.55\linewidth}}
 \toprule
 \textbf{Migracja} & \textbf{Zmiany} \\
 \midrule
@@ -325,20 +326,17 @@ zapis wszystkich zmian w~strukturze bazy danych.
 \textbf{Migracja} & \textbf{Zmiany} \\
 \midrule
 \endhead
-\texttt{core/0001\_initial} &
-  Schemat bazowy: tabele \texttt{core\_room}, \texttt{core\_roomimage},
-  \texttt{core\_amenity}, \texttt{core\_roomamenity}, \texttt{core\_inquiry},
-  \texttt{core\_auditlog}. Indeksy: \texttt{room\_slug\_idx},
-  \texttt{inquiry\_status\_idx}, \texttt{inquiry\_email\_idx}. \\[4pt]
-\texttt{content/0001\_initial} &
-  Tabele treści: \texttt{content\_post}, \texttt{content\_attraction}. \\[4pt]
-\texttt{core/0002\_room\_updated\_at} &
-  Dodanie kolumny \texttt{updated\_at} (auto-update) do \texttt{core\_room} --
-  możliwość śledzenia ostatniej modyfikacji pokoju. \\[4pt]
-\texttt{core/0003\_inquiry\_index\_created\_at} &
-  Dodanie indeksu \texttt{inquiry\_created\_at\_idx} na \texttt{core\_inquiry.created\_at}
+\texttt{core/} \newline \texttt{0001\_initial} &
+  Schemat bazowy: tabele room, roomimage, amenity, roomamenity, inquiry, auditlog.
+  Indeksy: room\_slug\_idx, inquiry\_status\_idx, inquiry\_email\_idx. \\[4pt]
+\texttt{content/} \newline \texttt{0001\_initial} &
+  Tabele treści: post, attraction. \\[4pt]
+\texttt{core/} \newline \texttt{0002\_room\_updated\_at} &
+  Dodanie kolumny \texttt{updated\_at} (auto-update) do tabeli room. \\[4pt]
+\texttt{core/} \newline \texttt{0003\_inquiry\_index\_} \newline \texttt{created\_at} &
+  Dodanie indeksu \texttt{inquiry\_created\_at\_idx} na \texttt{inquiry.created\_at}
   w~celu optymalizacji sortowania chronologicznego. \\[4pt]
-\texttt{core/0004\_propertyinfo} &
+\texttt{core/} \newline \texttt{0004\_propertyinfo} &
   Nowa tabela \texttt{core\_propertyinfo} (14 pól) -- centralne repozytorium
   informacji o~obiekcie i~politykach. \\
 \bottomrule

@@ -1,0 +1,23 @@
+:root {
+    --color-primary: #2c3e50;
+    --color-accent: #e67e22;
+}
+
+body {
+    font-family: 'Georgia', serif;
+}
+
+.navbar-brand {
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+
+.btn-primary:hover {
+    background-color: #d35400;
+    border-color: #d35400;
+}

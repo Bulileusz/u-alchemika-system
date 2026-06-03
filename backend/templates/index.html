@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Strona główna — U Alchemika{% endblock %}
+
+{% block content %}
+<section class="py-5 text-center bg-light rounded mb-4">
+    <h1>{% if property_info %}{{ property_info.name }}{% else %}U Alchemika{% endif %}</h1>
+    <p class="lead">Wyjątkowe miejsce na Twoim szlaku</p>
+</section>
+
+{% include 'core/_featured_rooms.html' %}
+
+{% include 'content/_attractions_teaser.html' %}
+
+{% include 'core/_contact_cta.html' %}
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="container py-5">
+    <h1 class="mb-3">{{ rooms.name }}</h1>
+
+    <p class="lead">{{ room.description }}</p>
+
+    <p><strong>Liczba osób:</strong> {{ room.capacity }} </p>
+    <p><strong>Cena:</strong> od {{ room.base_price }} zł / noc</p>
+
+    <h2 class="mt-5 mb-3">Galeria</h2>
+
+    <div class="row g-3">
+        {% for image in room.images.all %}
+        <div class="col-md-4">
+            <img 
+              src="{{ image.image_url }}"
+              class="img-fluid rounded shadow-sm"
+              alt="{{ image.alt_text|default:room.name}}"
+            >
+        </div>
+      {% empty %}
+        <p>Brak zdjęć pokoju.</p>
+      {% endfor %}
+    </div>
+
+    <h2 class="mt-5 mb-3">Udogodnienia</h2>
+
+    <div class="mb-4">
+        {% for amenity in room.amenities.all %}
+        <span class="badge text-bg-secondary me-1 mb-1">
+            {{ amenity.icon }} {{ amenity.name }}
+        </span>
+      {% empty %}
+        <p>Brak przypisanych udogodnień.</p>
+      {% endfor %}
+    </div>
+
+    <div class="d-flex gap-2">
+        {% if property_info.booking_url %}
+        <a href="{{ property_info.booking_url}}" class="btn btn-success" target="_blank">
+            Zarezerwuj 
+        </a>
+      {% endif %}
+
+      <a href="#" class="btn btn-outline-primary">
+        Zapytaj 
+      </a>
+
+      <a href="{% url 'core:room_list' %}" class="btn btn-outline-secondary">
+        Wróć do listy
+      </a>
+    </div>
+</section>
+{% endblock %}

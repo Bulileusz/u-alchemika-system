@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link" href="/">Strona główna</a></li>
-                <a class="nav-link" href="#">Pokoje</a>
+                <a class="nav-link" href="{% url 'core:room_list' %}">Pokoje</a>
                 <a class="nav-link" href="#">Kontakt</a>
                 {% if property_info and property_info.booking_url %}
                 <li class="nav-item">

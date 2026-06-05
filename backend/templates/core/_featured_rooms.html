@@ -1,4 +1,42 @@
-{# Placeholder — Osoba A uzupełni ten partial #}
-<section class="mb-4 p-3 border rounded text-muted text-center">
-    Wyróżnione pokoje — wkrótce (Osoba A)
+<section class="container py-5">
+    <h2 class="mb-4">Wyróżnione pokoje</h2>
+
+    <div class="rowe g-4">
+        {% for room in featured_rooms %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+
+                {% with image=room.images.first %}
+                   {% if image %}
+                    <img
+                       src="{{ image.image_url }}"
+                       class="card-img-top"
+                       alt="{{ image.alt_text|default:room.name }}"
+                    >
+                   {% endif %}
+                {% endwith %}
+
+                <div class="card-body">
+                    <h3 class="h5">{{ room.name }}</h3>
+
+                    <p>{{ room.description|truncatewords:15 }}</p>
+
+                    <p class="fw-bold">
+                        Od {{ room.base_price }} zł / noc
+                    </p>
+
+                    <a
+                      href="{% url 'core:room_detail' room.slug %}"
+                      class="btn btn-primary"
+                      >
+                      Szczegóły
+                    </a>
+                </div>
+
+            </div>
+        </div>
+       {% empty %}
+        <p>Brak wyróżnionych pokoi.</p>
+       {% endfor %}
+    </div>
 </section>

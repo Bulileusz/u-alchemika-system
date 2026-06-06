@@ -1,11 +1,41 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+{% load static %}
 
-{% block title %}Strona główna — U Alchemika{% endblock %}
+{% block title %}Strona główna - U Alchemika{% endblock %}
 
 {% block content %}
-<section class="py-5 text-center bg-light rounded mb-4">
-    <h1>{% if property_info %}{{ property_info.name }}{% else %}U Alchemika{% endif %}</h1>
-    <p class="lead">Wyjątkowe miejsce na Twoim szlaku</p>
+
+<section class="hero-section">
+  <div class="hero-content">
+    <p class="hero-label">Agroturystyka U Alchemika</p>
+
+    <h1>
+      Odpocznij
+      <span>blisko natury</span>
+    </h1>
+
+    <p class="hero-text">
+      Komfortowe pokoje, spokojna okolica i prawdziwa
+      wiejska gościnność u podnóża Gór Izerskich.
+    </p>
+
+    <div class="hero-actions">
+      {% if property_info and property_info.booking_url %}
+        <a href="{{ property_info.booking_url }}" class="hero-btn hero-btn-primary" target="_blank">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
+            <path d="m9 14 2 2 4-5"/>
+          </svg>
+          Zarezerwuj pobyt
+        </a>
+      {% endif %}
+
+      <a href="{% url 'core:room_list' %}" class="hero-btn hero-btn-light">
+        Nasze pokoje
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
 </section>
 
 {% include 'core/_featured_rooms.html' %}
@@ -13,4 +43,5 @@
 {% include 'content/_attractions_teaser.html' %}
 
 {% include 'core/_contact_cta.html' %}
+
 {% endblock %}

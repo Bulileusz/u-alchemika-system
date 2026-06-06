@@ -1,42 +1,51 @@
-<section class="container py-5">
-    <h2 class="mb-4">Wyróżnione pokoje</h2>
+{% load static %}
 
-    <div class="rowe g-4">
-        {% for room in featured_rooms %}
-        <div class="col-md-4">
-            <div class="card h-100 shadow-sm">
-
-                {% with image=room.images.first %}
-                   {% if image %}
-                    <img
-                       src="{{ image.image_url }}"
-                       class="card-img-top"
-                       alt="{{ image.alt_text|default:room.name }}"
-                    >
-                   {% endif %}
-                {% endwith %}
-
-                <div class="card-body">
-                    <h3 class="h5">{{ room.name }}</h3>
-
-                    <p>{{ room.description|truncatewords:15 }}</p>
-
-                    <p class="fw-bold">
-                        Od {{ room.base_price }} zł / noc
-                    </p>
-
-                    <a
-                      href="{% url 'core:room_detail' room.slug %}"
-                      class="btn btn-primary"
-                      >
-                      Szczegóły
-                    </a>
-                </div>
-
-            </div>
-        </div>
-       {% empty %}
-        <p>Brak wyróżnionych pokoi.</p>
-       {% endfor %}
+<section class="featured-rooms-section">
+  <div class="container">
+    <div class="section-kicker-wrap">
+      <span class="leaf-mark" aria-hidden="true"></span>
+      <p class="section-kicker">Poczuj się jak w domu</p>
+      <span class="leaf-mark leaf-mark-right" aria-hidden="true"></span>
     </div>
+    <h2 class="section-title">Nasze pokoje</h2>
+
+    <div class="row g-4">
+      {% for room in featured_rooms %}
+        <div class="col-md-4">
+          <article class="featured-room-card h-100">
+            <img
+              {% if room.slug == "pokoj-lawendowy" or room.slug == "apartament-rodzinny" %}
+              src="{% static 'images/lawendowy.jpeg' %}"
+              {% elif room.slug == "pokoj-gorski" %}
+              src="{% static 'images/gorski.jpg' %}"
+              {% elif room.slug == "pokoj-lesny" %}
+              src="{% static 'images/lesny.jpg' %}"
+              {% elif room.slug == "pokoj-izerski" %}
+              src="{% static 'images/izerski.jpg' %}"
+              {% else %}
+              src="{% static 'images/WhatsApp Image 2026-05-25 at 4.56.48 PM.jpeg' %}"
+              {% endif %}
+              alt="{{ room.name }}"
+            >
+
+            <div class="featured-room-body">
+              <h3>{{ room.name }}</h3>
+
+              <p>{{ room.description|truncatewords:12 }}</p>
+
+              <p class="featured-room-meta">
+                {{ room.capacity }} osoby · od {{ room.base_price }} zł / noc
+              </p>
+
+              <a href="{% url 'core:room_detail' room.slug %}">
+                Zobacz więcej →
+              </a>
+            </div>
+          </article>
+        </div>
+      {% empty %}
+        <p>Brak wyróżnionych pokoi.</p>
+      {% endfor %}
+    </div>
+  </div>
 </section>

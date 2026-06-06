@@ -11,7 +11,17 @@
             <div class="card h-100 shadow-sm">
 
                 <img
+                    {% if room.slug == "pokoj-lawendowy" or room.slug == "apartament-rodzinny" %}
+                    src="{% static 'images/lawendowy.jpeg' %}"
+                    {% elif room.slug == "pokoj-gorski" %}
+                    src="{% static 'images/gorski.jpg' %}"
+                    {% elif room.slug == "pokoj-lesny" %}
+                    src="{% static 'images/lesny.jpg' %}"
+                    {% elif room.slug == "pokoj-izerski" %}
+                    src="{% static 'images/izerski.jpg' %}"
+                    {% else %}
                     src="{% static 'images/WhatsApp Image 2026-05-25 at 4.56.48 PM.jpeg' %}"
+                    {% endif %}
                     class="card-img-top"
                     alt="{{ room.name }}"
                 >

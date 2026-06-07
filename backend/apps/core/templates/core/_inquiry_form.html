@@ -1,8 +1,4 @@
-{#
-  Partial formularza — zwracany przez HTMX przy błędach walidacji.
-  Zagadnienie #15: hx-post, hx-target, hx-swap, hx-indicator.
-  Zagadnienie #18: RWD przez Bootstrap grid.
-#}
+
 
 <form
   hx-post="{% url 'inquiry-create' %}"
@@ -33,32 +29,32 @@
 
     {# Dane gościa #}
     <div class="col-12">
-      <label for="{{ form.guest_name.id_for_label }}" class="form-label">
-        {{ form.guest_name.label }} <span class="text-danger">*</span>
+      <label for="{{ form.full_name.id_for_label }}" class="form-label">
+        {{ form.full_name.label }} <span class="text-danger">*</span>
       </label>
-      {{ form.guest_name }}
-      {% if form.guest_name.errors %}
-        <div class="invalid-feedback d-block">{{ form.guest_name.errors.0 }}</div>
+      {{ form.full_name }}
+      {% if form.full_name.errors %}
+        <div class="invalid-feedback d-block">{{ form.full_name.errors.0 }}</div>
       {% endif %}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.guest_email.id_for_label }}" class="form-label">
-        {{ form.guest_email.label }} <span class="text-danger">*</span>
+      <label for="{{ form.email.id_for_label }}" class="form-label">
+        {{ form.email.label }} <span class="text-danger">*</span>
       </label>
-      {{ form.guest_email }}
-      {% if form.guest_email.errors %}
-        <div class="invalid-feedback d-block">{{ form.guest_email.errors.0 }}</div>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
       {% endif %}
     </div>
 
     <div class="col-md-6">
-      <label for="{{ form.guest_phone.id_for_label }}" class="form-label">
-        {{ form.guest_phone.label }}
+      <label for="{{ form.phone.id_for_label }}" class="form-label">
+        {{ form.phone.label }}
       </label>
-      {{ form.guest_phone }}
-      {% if form.guest_phone.errors %}
-        <div class="invalid-feedback d-block">{{ form.guest_phone.errors.0 }}</div>
+      {{ form.phone }}
+      {% if form.phone.errors %}
+        <div class="invalid-feedback d-block">{{ form.phone.errors.0 }}</div>
       {% endif %}
     </div>
 
@@ -75,32 +71,32 @@
 
     {# Daty #}
     <div class="col-md-4">
-      <label for="{{ form.check_in.id_for_label }}" class="form-label">
-        {{ form.check_in.label }} <span class="text-danger">*</span>
+      <label for="{{ form.date_from.id_for_label }}" class="form-label">
+        {{ form.date_from.label }} <span class="text-danger">*</span>
       </label>
-      {{ form.check_in }}
-      {% if form.check_in.errors %}
-        <div class="invalid-feedback d-block">{{ form.check_in.errors.0 }}</div>
+      {{ form.date_from }}
+      {% if form.date_from.errors %}
+        <div class="invalid-feedback d-block">{{ form.date_from.errors.0 }}</div>
       {% endif %}
     </div>
 
     <div class="col-md-4">
-      <label for="{{ form.check_out.id_for_label }}" class="form-label">
-        {{ form.check_out.label }} <span class="text-danger">*</span>
+      <label for="{{ form.date_to.id_for_label }}" class="form-label">
+        {{ form.date_to.label }} <span class="text-danger">*</span>
       </label>
-      {{ form.check_out }}
-      {% if form.check_out.errors %}
-        <div class="invalid-feedback d-block">{{ form.check_out.errors.0 }}</div>
+      {{ form.date_to }}
+      {% if form.date_to.errors %}
+        <div class="invalid-feedback d-block">{{ form.date_to.errors.0 }}</div>
       {% endif %}
     </div>
 
     <div class="col-md-4">
-      <label for="{{ form.guests_count.id_for_label }}" class="form-label">
-        {{ form.guests_count.label }} <span class="text-danger">*</span>
+      <label for="{{ form.guests.id_for_label }}" class="form-label">
+        {{ form.guests.label }} <span class="text-danger">*</span>
       </label>
-      {{ form.guests_count }}
-      {% if form.guests_count.errors %}
-        <div class="invalid-feedback d-block">{{ form.guests_count.errors.0 }}</div>
+      {{ form.guests }}
+      {% if form.guests.errors %}
+        <div class="invalid-feedback d-block">{{ form.guests.errors.0 }}</div>
       {% endif %}
     </div>
 

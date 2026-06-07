@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Panel — Zapytania{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Zapytania gości</h1>
+    <span class="badge bg-secondary fs-6">{{ inquiries.count }}</span>
+  </div>
+
+  {% if inquiries %}
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Gość</th>
+          <th>Pokój</th>
+          <th>Check-in</th>
+          <th>Check-out</th>
+          <th>Gości</th>
+          <th>Wysłane</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inq in inquiries %}
+        <tr>
+          <td class="text-muted small">{{ inq.pk }}</td>
+          <td>
+            <div class="fw-semibold">{{ inq.guest_name }}</div>
+            <small class="text-muted">
+              <a href="mailto:{{ inq.guest_email }}">{{ inq.guest_email }}</a>
+            </small>
+          </td>
+          <td>{{ inq.room }}</td>
+          <td>{{ inq.check_in }}</td>
+          <td>{{ inq.check_out }}</td>
+          <td>{{ inq.guests_count }}</td>
+          <td>
+            <small class="text-muted">{{ inq.created_at|date:"d.m.Y H:i" }}</small>
+          </td>
+          <td>
+            <span class="badge
+              {% if inq.status == 'new' %}bg-warning text-dark
+              {% elif inq.status == 'replied' %}bg-success
+              {% else %}bg-secondary{% endif %}">
+              {{ inq.get_status_display|default:inq.status }}
+            </span>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+    <div class="alert alert-info">Brak zapytań.</div>
+  {% endif %}
+
+</div>
+{% endblock %}

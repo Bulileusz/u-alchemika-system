@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}Zapytanie o pobyt — U Alchemika{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7">
+
+      <h1 class="mb-1">Zapytaj o pobyt</h1>
+      <p class="text-muted mb-4">
+        Wypełnij formularz, a odezwiemy się najszybciej jak to możliwe.
+        Możesz też zadzwonić:
+        <a href="tel:{{ prop.phone }}">{{ prop.phone }}</a>.
+      </p>
+
+      {# Kontener HTMX — zagadnienie #15 #}
+      <div id="inquiry-container">
+        {% include "core/_inquiry_form.html" %}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+{# Zagadnienie #8 — JavaScript: licznik znaków + walidacja dat #}
+<script src="{% static 'core/js/inquiry.js' %}"></script>
+{% endblock %}

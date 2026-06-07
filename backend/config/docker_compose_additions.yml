@@ -1,0 +1,51 @@
+# ============================================================
+# Dodatek do docker-compose.yml — Osoba B
+# Dołóż poniższe serwisy do istniejącego pliku docker-compose.yml
+# ============================================================
+#
+# Plik wynikowy powinien mieć strukturę:
+#
+# services:
+#   db:       (już istnieje)
+#   web:      (już istnieje — dodaj zależność od mailhog i redis)
+#   mailhog:  ← nowy
+#   redis:    ← nowy (opcjonalny, jeśli używasz Redis cache)
+#
+# ============================================================
+
+# Fragment do wklejenia do sekcji "services:" w docker-compose.yml:
+
+# ------ OSOBA B: mail + cache ------
+
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: u_alchemika_mailhog
+    ports:
+      - "1025:1025"   # SMTP — Django wysyła tutaj
+      - "8025:8025"   # Panel web — otwórz http://localhost:8025
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: u_alchemika_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+# ------ koniec OSOBA B ------
+
+
+# ── Zaktualizuj też serwis "web" — dodaj depends_on: ─────────────────────────
+#
+#   web:
+#     ...
+#     depends_on:
+#       - db
+#       - mailhog   ← dodaj
+#       - redis     ← dodaj
+#
+# ── Oraz wymagane pakiety — dołóż do requirements.txt: ───────────────────────
+#
+#   django-redis==5.4.0
+#
+# ─────────────────────────────────────────────────────────────────────────────

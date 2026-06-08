@@ -1,0 +1,137 @@
+
+
+<form
+  hx-post="{% url 'inquiry-create' %}"
+  hx-target="#inquiry-container"
+  hx-swap="innerHTML"
+  hx-indicator="#form-spinner"
+  novalidate
+>
+  {% csrf_token %}
+
+  {# Spinner widoczny podczas wysyłki HTMX #}
+  <div id="form-spinner" class="htmx-indicator text-center py-2">
+    <div class="spinner-border spinner-border-sm text-primary" role="status">
+      <span class="visually-hidden">Wysyłanie…</span>
+    </div>
+  </div>
+
+  {# Błędy ogólne (non-field) #}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger">
+      {% for error in form.non_field_errors %}
+        <div>{{ error }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <div class="row g-3">
+
+    {# Dane gościa #}
+    <div class="col-12">
+      <label for="{{ form.full_name.id_for_label }}" class="form-label">
+        {{ form.full_name.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.full_name }}
+      {% if form.full_name.errors %}
+        <div class="invalid-feedback d-block">{{ form.full_name.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-6">
+      <label for="{{ form.email.id_for_label }}" class="form-label">
+        {{ form.email.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.email }}
+      {% if form.email.errors %}
+        <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-6">
+      <label for="{{ form.phone.id_for_label }}" class="form-label">
+        {{ form.phone.label }}
+      </label>
+      {{ form.phone }}
+      {% if form.phone.errors %}
+        <div class="invalid-feedback d-block">{{ form.phone.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    {# Wybór pokoju #}
+    <div class="col-12">
+      <label for="{{ form.room.id_for_label }}" class="form-label">
+        {{ form.room.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.room }}
+      {% if form.room.errors %}
+        <div class="invalid-feedback d-block">{{ form.room.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    {# Daty #}
+    <div class="col-md-4">
+      <label for="{{ form.date_from.id_for_label }}" class="form-label">
+        {{ form.date_from.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.date_from }}
+      {% if form.date_from.errors %}
+        <div class="invalid-feedback d-block">{{ form.date_from.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-4">
+      <label for="{{ form.date_to.id_for_label }}" class="form-label">
+        {{ form.date_to.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.date_to }}
+      {% if form.date_to.errors %}
+        <div class="invalid-feedback d-block">{{ form.date_to.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    <div class="col-md-4">
+      <label for="{{ form.guests.id_for_label }}" class="form-label">
+        {{ form.guests.label }} <span class="text-danger">*</span>
+      </label>
+      {{ form.guests }}
+      {% if form.guests.errors %}
+        <div class="invalid-feedback d-block">{{ form.guests.errors.0 }}</div>
+      {% endif %}
+    </div>
+
+    {# Wiadomość z licznikiem znaków (JS) #}
+    <div class="col-12">
+      <label for="{{ form.message.id_for_label }}" class="form-label">
+        {{ form.message.label }}
+      </label>
+      {{ form.message }}
+      <div class="d-flex justify-content-between">
+        {% if form.message.errors %}
+          <div class="invalid-feedback d-block">{{ form.message.errors.0 }}</div>
+        {% else %}
+          <span></span>
+        {% endif %}
+        {# Zagadnienie #8 — JS aktualizuje ten licznik #}
+        <small class="text-muted" id="char-counter">0 / 1000</small>
+      </div>
+    </div>
+
+  </div>{# /row #}
+
+  <div class="mt-4 d-grid d-md-flex gap-2">
+    <button type="submit" class="btn btn-primary px-5">
+      Wyślij zapytanie
+    </button>
+    <a href="{% url 'contact' %}" class="btn btn-outline-secondary">
+      Kontakt
+    </a>
+  </div>
+
+  <p class="mt-3 text-muted small">
+    Pola oznaczone <span class="text-danger">*</span> są wymagane.
+    Twoje dane przetwarzamy zgodnie z
+    <a href="{% url 'property-info' %}">polityką prywatności</a>.
+  </p>
+
+</form>

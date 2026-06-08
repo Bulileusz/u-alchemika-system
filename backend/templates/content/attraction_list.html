@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Atrakcje w okolicy — U Alchemika{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Atrakcje w okolicy</h1>
+<div class="row">
+    {% for attraction in attractions %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ attraction.name }}</h5>
+                {% if attraction.location_name %}
+                <p class="text-muted small mb-2">📍 {{ attraction.location_name }}</p>
+                {% endif %}
+                <p class="card-text">{{ attraction.description }}</p>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col">
+        <p class="text-muted">Brak atrakcji.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

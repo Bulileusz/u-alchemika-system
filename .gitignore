@@ -214,3 +214,6 @@ Thumbs.db
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# Lokalne notatki i plany (nie idą na GitHub)
+notes/

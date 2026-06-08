@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} — U Alchemika{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <a href="{% url 'content:post_list' %}" class="btn btn-outline-secondary btn-sm mb-4">
+            ← Wróć do bloga
+        </a>
+        <h1 class="mb-2">{{ post.title }}</h1>
+        {% if post.published_at %}
+        <p class="text-muted mb-3">{{ post.published_at|date:"d.m.Y" }}</p>
+        {% endif %}
+        <hr>
+        <div class="mt-4">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+</div>
+{% endblock %}

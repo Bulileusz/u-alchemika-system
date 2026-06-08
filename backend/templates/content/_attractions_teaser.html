@@ -1,4 +1,25 @@
-{# Placeholder — Osoba C uzupełni ten partial #}
-<section class="mb-4 p-3 border rounded text-muted text-center">
-    Atrakcje okolicy — wkrótce (Osoba C)
+<section class="mb-5">
+    <h2 class="mb-4">Atrakcje w okolicy</h2>
+    <div class="row">
+        {% for attraction in attractions_teaser %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h6 class="card-title">{{ attraction.name }}</h6>
+                    {% if attraction.location_name %}
+                    <p class="text-muted small mb-1">📍 {{ attraction.location_name }}</p>
+                    {% endif %}
+                    <p class="card-text small">{{ attraction.description|truncatechars:120 }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col">
+            <p class="text-muted">Wkrótce...</p>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'content:attraction_list' %}" class="btn btn-outline-primary btn-sm mt-2">
+        Wszystkie atrakcje →
+    </a>
 </section>

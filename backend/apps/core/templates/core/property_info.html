@@ -14,23 +14,23 @@
         <div class="card-body">
           <h2 class="h5 card-title mb-3">🕐 Godziny</h2>
           <ul class="list-unstyled mb-0">
-            {% if prop.check_in_time %}
-            <li class="mb-1"><strong>Check-in:</strong> od {{ prop.check_in_time }}</li>
+            {% if prop.check_in %}
+            <li class="mb-1"><strong>Check-in:</strong> od {{ prop.check_in }}</li>
             {% endif %}
-            {% if prop.check_out_time %}
-            <li><strong>Check-out:</strong> do {{ prop.check_out_time }}</li>
+            {% if prop.check_out %}
+            <li><strong>Check-out:</strong> do {{ prop.check_out }}</li>
             {% endif %}
           </ul>
         </div>
       </div>
     </div>
 
-    {% if prop.payment_methods %}
+    {% if prop.payment_info %}
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
           <h2 class="h5 card-title mb-3">💳 Płatności</h2>
-          <p class="mb-0">{{ prop.payment_methods }}</p>
+          <p class="mb-0">{{ prop.payment_info }}</p>
         </div>
       </div>
     </div>
@@ -47,12 +47,23 @@
     </div>
     {% endif %}
 
-    {% if prop.house_rules %}
+    {% if prop.parking_info %}
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">📜 Regulamin</h2>
-          <p class="mb-0">{{ prop.house_rules|linebreaksbr }}</p>
+          <h2 class="h5 card-title mb-3">🅿️ Parking</h2>
+          <p class="mb-0">{{ prop.parking_info }}</p>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if prop.pets_policy %}
+    <div class="col-md-6">
+      <div class="card h-100 border-0 shadow-sm">
+        <div class="card-body">
+          <h2 class="h5 card-title mb-3">🐾 Zwierzęta</h2>
+          <p class="mb-0">{{ prop.pets_policy }}</p>
         </div>
       </div>
     </div>
@@ -64,8 +75,8 @@
   {% endif %}
 
   <div class="mt-5">
-    <a href="{% url 'contact' %}" class="btn btn-outline-primary me-2">Kontakt</a>
-    <a href="{% url 'inquiry-create' %}" class="btn btn-primary">Zapytaj o pobyt</a>
+    <a href="{% url 'core:contact' %}" class="btn btn-outline-primary me-2">Kontakt</a>
+    <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">Zapytaj o pobyt</a>
   </div>
 
 </div>

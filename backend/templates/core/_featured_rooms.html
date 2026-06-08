@@ -1,4 +1,51 @@
-{# Placeholder — Osoba A uzupełni ten partial #}
-<section class="mb-4 p-3 border rounded text-muted text-center">
-    Wyróżnione pokoje — wkrótce (Osoba A)
+{% load static %}
+
+<section class="featured-rooms-section">
+  <div class="container">
+    <div class="section-kicker-wrap">
+      <span class="leaf-mark" aria-hidden="true"></span>
+      <p class="section-kicker">Poczuj się jak w domu</p>
+      <span class="leaf-mark leaf-mark-right" aria-hidden="true"></span>
+    </div>
+    <h2 class="section-title">Nasze pokoje</h2>
+
+    <div class="row g-4">
+      {% for room in featured_rooms %}
+        <div class="col-md-4">
+          <article class="featured-room-card h-100">
+            <img
+              {% if room.slug == "pokoj-lawendowy" or room.slug == "apartament-rodzinny" %}
+              src="{% static 'images/lawendowy.jpeg' %}"
+              {% elif room.slug == "pokoj-gorski" %}
+              src="{% static 'images/gorski.jpg' %}"
+              {% elif room.slug == "pokoj-lesny" %}
+              src="{% static 'images/lesny.jpg' %}"
+              {% elif room.slug == "pokoj-izerski" %}
+              src="{% static 'images/izerski.jpg' %}"
+              {% else %}
+              src="{% static 'images/WhatsApp Image 2026-05-25 at 4.56.48 PM.jpeg' %}"
+              {% endif %}
+              alt="{{ room.name }}"
+            >
+
+            <div class="featured-room-body">
+              <h3>{{ room.name }}</h3>
+
+              <p>{{ room.description|truncatewords:12 }}</p>
+
+              <p class="featured-room-meta">
+                {{ room.capacity }} osoby · od {{ room.base_price }} zł / noc
+              </p>
+
+              <a href="{% url 'core:room_detail' room.slug %}">
+                Zobacz więcej →
+              </a>
+            </div>
+          </article>
+        </div>
+      {% empty %}
+        <p>Brak wyróżnionych pokoi.</p>
+      {% endfor %}
+    </div>
+  </div>
 </section>

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Galeria - U Alchemika{% endblock %}
+
+{% block content %}
+<section class="gallery-page">
+  <div class="container">
+    <div class="section-kicker-wrap">
+      <span class="leaf-mark" aria-hidden="true"></span>
+      <p class="section-kicker">U Alchemika</p>
+      <span class="leaf-mark leaf-mark-right" aria-hidden="true"></span>
+    </div>
+
+    <h1 class="section-title">Galeria</h1>
+
+    {% if gallery_images %}
+      <div class="gallery-grid">
+        {% for image in gallery_images %}
+          <figure class="gallery-item">
+            <button class="gallery-thumb" type="button" data-gallery-image="{% static image.src %}" aria-label="Powiększ zdjęcie">
+              <img src="{% static image.src %}" alt="{{ image.alt }}">
+            </button>
+          </figure>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="gallery-empty">Brak zdjęć w galerii.</p>
+    {% endif %}
+  </div>
+</section>
+
+<div class="gallery-lightbox" data-gallery-lightbox hidden>
+  <button class="gallery-lightbox-close" type="button" data-gallery-close aria-label="Zamknij zdjęcie">&times;</button>
+  <img src="" alt="Powiększone zdjęcie" data-gallery-lightbox-image>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const lightbox = document.querySelector("[data-gallery-lightbox]");
+    const lightboxImage = document.querySelector("[data-gallery-lightbox-image]");
+    const closeButton = document.querySelector("[data-gallery-close]");
+    const thumbnails = document.querySelectorAll("[data-gallery-image]");
+
+    if (!lightbox || !lightboxImage || !closeButton) {
+      return;
+    }
+
+    function openLightbox(imageSrc) {
+      lightboxImage.src = imageSrc;
+      lightbox.hidden = false;
+      document.body.classList.add("gallery-lightbox-open");
+    }
+
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImage.src = "";
+      document.body.classList.remove("gallery-lightbox-open");
+    }
+
+    thumbnails.forEach(function (thumbnail) {
+      thumbnail.addEventListener("click", function () {
+        openLightbox(thumbnail.dataset.galleryImage);
+      });
+    });
+
+    closeButton.addEventListener("click", closeLightbox);
+
+    lightbox.addEventListener("click", function (event) {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !lightbox.hidden) {
+        closeLightbox();
+      }
+    });
+  });
+</script>
+{% endblock %}

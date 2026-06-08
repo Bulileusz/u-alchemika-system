@@ -129,7 +129,7 @@
     "pk": 1,
     "fields": {
       "room": 1,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Lawendowy",
+      "image_url": "/static/images/lawendowy.jpeg",
       "alt_text": "Pokój Lawendowy — widok główny",
       "display_order": 1
     }
@@ -139,7 +139,7 @@
     "pk": 2,
     "fields": {
       "room": 2,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Górski",
+      "image_url": "/static/images/gorski.jpg",
       "alt_text": "Pokój Górski — widok główny",
       "display_order": 1
     }
@@ -149,7 +149,7 @@
     "pk": 3,
     "fields": {
       "room": 3,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Leśny",
+      "image_url": "/static/images/lesny.jpg",
       "alt_text": "Pokój Leśny — widok główny",
       "display_order": 1
     }
@@ -159,7 +159,7 @@
     "pk": 4,
     "fields": {
       "room": 4,
-      "image_url": "https://placehold.co/800x600?text=Pokój+Izerski",
+      "image_url": "/static/images/izerski.jpg",
       "alt_text": "Pokój Izerski — widok główny",
       "display_order": 1
     }
@@ -169,7 +169,7 @@
     "pk": 5,
     "fields": {
       "room": 5,
-      "image_url": "https://placehold.co/800x600?text=Apartament+Rodzinny",
+      "image_url": "/static/images/lawendowy.jpeg",
       "alt_text": "Apartament Rodzinny — widok główny",
       "display_order": 1
     }

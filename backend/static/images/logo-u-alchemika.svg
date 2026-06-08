@@ -1,0 +1,49 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>U Alchemika</title>
+
+  <circle cx="110" cy="110" r="78" stroke="#20271f" stroke-width="2.7"/>
+
+  <g stroke="#20271f" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M110 34l4 10 10 4-10 4-4 10-4-10-10-4 10-4 4-10Z" stroke-width="2.4"/>
+
+    <path d="M99 74h22" stroke-width="2.8"/>
+    <path d="M104 74v37c0 6-2 12-5 17l-16 27c-7 12 2 27 16 27h22c14 0 23-15 16-27l-16-27c-3-5-5-11-5-17V74" stroke-width="2.8"/>
+    <path d="M96 156c11 8 27 8 38 0" stroke-width="2.6"/>
+    <path d="M100 167h20" stroke-width="2.6"/>
+  </g>
+
+  <g stroke="#6f7f4e" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M57 161C38 133 39 91 62 62" stroke-width="2.9"/>
+    <path d="M163 161c19-28 18-70-5-99" stroke-width="2.9"/>
+  </g>
+
+  <g fill="#7c6499">
+    <ellipse cx="59" cy="70" rx="3.9" ry="7.6" transform="rotate(39 59 70)"/>
+    <ellipse cx="48" cy="82" rx="3.9" ry="7.6" transform="rotate(54 48 82)"/>
+    <ellipse cx="53" cy="98" rx="4.1" ry="8" transform="rotate(67 53 98)"/>
+    <ellipse cx="43" cy="112" rx="4.1" ry="8" transform="rotate(79 43 112)"/>
+    <ellipse cx="51" cy="128" rx="4.1" ry="8" transform="rotate(101 51 128)"/>
+    <ellipse cx="47" cy="145" rx="4.1" ry="8" transform="rotate(119 47 145)"/>
+    <ellipse cx="58" cy="158" rx="4.1" ry="8" transform="rotate(137 58 158)"/>
+
+    <ellipse cx="161" cy="70" rx="3.9" ry="7.6" transform="rotate(-39 161 70)"/>
+    <ellipse cx="172" cy="82" rx="3.9" ry="7.6" transform="rotate(-54 172 82)"/>
+    <ellipse cx="167" cy="98" rx="4.1" ry="8" transform="rotate(-67 167 98)"/>
+    <ellipse cx="177" cy="112" rx="4.1" ry="8" transform="rotate(-79 177 112)"/>
+    <ellipse cx="169" cy="128" rx="4.1" ry="8" transform="rotate(-101 169 128)"/>
+    <ellipse cx="173" cy="145" rx="4.1" ry="8" transform="rotate(-119 173 145)"/>
+    <ellipse cx="162" cy="158" rx="4.1" ry="8" transform="rotate(-137 162 158)"/>
+  </g>
+
+  <g fill="#8e78ad" opacity="0.78">
+    <circle cx="52" cy="65" r="2.2"/>
+    <circle cx="55" cy="88" r="2.2"/>
+    <circle cx="46" cy="121" r="2.1"/>
+    <circle cx="54" cy="138" r="2.2"/>
+
+    <circle cx="168" cy="65" r="2.2"/>
+    <circle cx="165" cy="88" r="2.2"/>
+    <circle cx="174" cy="121" r="2.1"/>
+    <circle cx="166" cy="138" r="2.2"/>
+  </g>
+</svg>

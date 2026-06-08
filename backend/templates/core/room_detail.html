@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ room.name }} - U Alchemika{% endblock %}
+
+{% block content %}
+<section class="room-detail-page">
+  <div class="container">
+    <a class="room-back-link" href="{% url 'core:room_list' %}">
+      &larr; Powrót do wszystkich pokoi
+    </a>
+
+    <div class="room-detail-hero">
+      <div class="room-detail-copy">
+        <p class="room-detail-kicker">Przytulny pokój dla {{ room.capacity }} os.</p>
+        <h1>{{ room.name }}</h1>
+
+        <p class="room-detail-description">
+          {{ room.description }}
+        </p>
+
+        <dl class="room-detail-meta">
+          <div>
+            <dt>Liczba osób</dt>
+            <dd>{{ room.capacity }}</dd>
+          </div>
+          <div>
+            <dt>Cena</dt>
+            <dd>od {{ room.base_price }} zł / noc</dd>
+          </div>
+        </dl>
+
+        <div class="room-detail-actions">
+          {% if property_info and property_info.booking_url %}
+            <a class="room-primary-btn" href="{{ property_info.booking_url }}" target="_blank">
+              Rezerwuj pobyt
+            </a>
+          {% endif %}
+          <a class="room-secondary-btn" href="#">
+            Zapytaj o termin
+          </a>
+        </div>
+      </div>
+
+      <div class="room-detail-photo">
+        {% if room_main_image_static_path %}
+          <img src="{% static room_main_image_static_path %}" alt="{{ room.name }}">
+        {% else %}
+          {% with image=room.images.first %}
+            {% if image %}
+              <img src="{{ image.image_url }}" alt="{{ image.alt_text|default:room.name }}">
+            {% else %}
+              <img src="{% static 'images/WhatsApp Image 2026-05-25 at 4.56.48 PM.jpeg' %}" alt="{{ room.name }}">
+            {% endif %}
+          {% endwith %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="room-feature-grid">
+      {% for amenity in room.amenities.all|slice:":3" %}
+        <article class="room-feature-card">
+          <span class="room-feature-icon room-feature-icon-{{ amenity.icon|default:'default' }}" aria-hidden="true"></span>
+          <div>
+            <h2>{{ amenity.name }}</h2>
+            <p>Wygoda i spokojny odpoczynek podczas pobytu.</p>
+          </div>
+        </article>
+      {% empty %}
+        <article class="room-feature-card">
+          <span class="room-feature-icon room-feature-icon-default" aria-hidden="true"></span>
+          <div>
+            <h2>Komfortowy pobyt</h2>
+            <p>Szczegóły udogodnień dodamy wkrótce.</p>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

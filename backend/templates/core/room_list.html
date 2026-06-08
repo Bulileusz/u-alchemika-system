@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="container py-5">
+    <h1 class="mb-4">Nasze pokoje</h1>
+
+    <div class="row g-4">
+        {% for room in rooms %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+
+                <img
+                    {% if room.slug == "pokoj-lawendowy" or room.slug == "apartament-rodzinny" %}
+                    src="{% static 'images/lawendowy.jpeg' %}"
+                    {% elif room.slug == "pokoj-gorski" %}
+                    src="{% static 'images/gorski.jpg' %}"
+                    {% elif room.slug == "pokoj-lesny" %}
+                    src="{% static 'images/lesny.jpg' %}"
+                    {% elif room.slug == "pokoj-izerski" %}
+                    src="{% static 'images/izerski.jpg' %}"
+                    {% else %}
+                    src="{% static 'images/WhatsApp Image 2026-05-25 at 4.56.48 PM.jpeg' %}"
+                    {% endif %}
+                    class="card-img-top"
+                    alt="{{ room.name }}"
+                >
+
+                <div class="card-body">
+                    <h2 class="h5 card-title">{{ room.name }}</h2>
+
+                    <p class="card-text">
+                        {{ room.description|truncatewords:20 }}
+                    </p>
+
+                    <p class="mb-1">
+                        <strong>Liczba osób:</strong> {{ room.capacity }}
+                    </p>
+
+                    <p class="fw-bold">
+                        Od {{ room.base_price }} zł / noc
+                    </p>
+
+                    <a href="{% url 'core:room_detail' room.slug %}"
+                       class="btn btn-primary">
+                        Zobacz szczegóły
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        {% empty %}
+            <p>Brak dostępnych pokoi.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

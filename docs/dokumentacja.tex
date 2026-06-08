@@ -22,8 +22,24 @@
 \usepackage{lmodern}
 \usepackage{amssymb}
 \usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, positioning, arrows.meta}
 % hyperref ladowany na koncu preambury, zeby uniknac konfliktow z innymi pakietami
 \usepackage{hyperref}
+
+% --- Aktor (postac) dla diagramu Use-Case ---
+% Uzycie: \actor{nazwa-wezla}{x}{y}{Etykieta}
+\newcommand{\actor}[4]{%
+  \begin{scope}[shift={(#2,#3)}]
+    \draw (0,0.50) circle (0.13);          % glowa
+    \draw (0,0.37) -- (0,-0.12);           % tulow
+    \draw (-0.22,0.18) -- (0.22,0.18);     % ramiona
+    \draw (0,-0.12) -- (-0.18,-0.42);      % lewa noga
+    \draw (0,-0.12) -- (0.18,-0.42);       % prawa noga
+    \node[align=center, font=\small\bfseries] at (0,-0.75) {#4};
+    \coordinate (#1) at (0,0);
+  \end{scope}%
+}
 
 \geometry{
   top=2.5cm,
@@ -142,6 +158,8 @@
     \textbf{Autorzy:}      & Maciej Bułhak \\[4pt]
                            & Małgorzata Bułhak \\[4pt]
                            & Hubert Olszak \\[4pt]
+    \textbf{Przedmiot:}    & Projektowanie systemów baz danych \\[4pt]
+    \textbf{Rok akademicki:} & 2025/2026 \\[4pt]
     \textbf{Data:}         & \today \\[4pt]
     \textbf{Technologia:}  & Django 4.2 + PostgreSQL 16 + Docker \\
   \end{tabular}
@@ -172,6 +190,26 @@ dla obiektu agroturystycznego \textbf{„U Alchemika”} zlokalizowanego w Góra
 Projekt realizuje wszystkie etapy cyklu życia systemu bazodanowego: od wyboru SZBD
 i~konfiguracji środowiska, przez iteracyjne projektowanie modelu danych, aż po
 testowanie i~optymalizację zapytań.
+
+\subsection{Założenia wstępne}
+
+Na etapie projektowania przyjęto następujące założenia:
+
+\begin{itemize}[nosep]
+  \item System nie prowadzi pełnej obsługi rezerwacji online -- gość wysyła
+    \emph{zapytanie rezerwacyjne}, a~finalizacja odbywa się poza systemem
+    (kontakt bezpośredni lub przekierowanie do Booking.com). W~modelu danych
+    nie występuje zatem encja \texttt{Booking}.
+  \item Obsługą zapytań i~zarządzaniem treścią zajmuje się pojedynczy
+    administrator korzystający z~wbudowanego panelu Django Admin; system nie
+    wymaga rozbudowanego mechanizmu ról.
+  \item Dane o~obiekcie (adres, polityki, kontakt) są przechowywane w~jednej
+    tabeli typu singleton (\texttt{PropertyInfo}).
+  \item Środowisko uruchomieniowe jest w~pełni skonteneryzowane (Docker Compose),
+    co zapewnia powtarzalność wdrożenia niezależnie od systemu operacyjnego.
+  \item Warstwa dostępu do danych realizowana jest przez Django ORM, a~zmiany
+    struktury bazy są wersjonowane za pomocą migracji (możliwość rollbacku).
+\end{itemize}
 
 % ===================== 2. ŚRODOWISKO =====================
 \section{Wybór środowiska SZBD i konfiguracja deweloperska}
@@ -276,6 +314,93 @@ bind-mount (\texttt{./backend:/app}), co umożliwia edycję na żywo bez przebud
   \item Dodawanie/edytowanie/usuwanie pokoi, udogodnień, postów, atrakcji.
   \item Przeglądanie logu audytu (tylko odczyt).
 \end{itemize}
+
+\subsection{Diagram przypadków użycia (Use-Case)}
+
+Diagram na rys.~\ref{fig:usecase} przedstawia interakcje obu aktorów z~systemem.
+Gość ma dostęp do funkcji publicznych (przeglądanie oferty i~wysyłanie zapytań),
+natomiast administrator zarządza danymi przez panel Django Admin.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    uc/.style={ellipse, draw, align=center, minimum width=4.2cm,
+               minimum height=1.05cm, inner sep=1pt, font=\small}
+  ]
+    % --- Granica systemu ---
+    \draw[rounded corners, thick] (3.5,-9.25) rectangle (8.5,0.95);
+    \node[font=\bfseries] at (6,0.55) {System U Alchemika};
+
+    % --- Przypadki uzycia ---
+    \node[uc] (u1) at (6, 0.0)  {Przeglądanie listy pokoi};
+    \node[uc] (u2) at (6,-1.4)  {Szczegóły pokoju\\(galeria, cena)};
+    \node[uc] (u3) at (6,-2.8)  {Wysłanie zapytania\\rezerwacyjnego};
+    \node[uc] (u4) at (6,-4.2)  {Zarządzanie statusem\\zapytań};
+    \node[uc] (u5) at (6,-5.6)  {Zarządzanie pokojami\\i~udogodnieniami};
+    \node[uc] (u6) at (6,-7.0)  {Zarządzanie treścią\\(blog, atrakcje)};
+    \node[uc] (u7) at (6,-8.4)  {Podgląd logu audytu};
+
+    % --- Aktorzy ---
+    \actor{guest}{1.0}{-1.4}{Gość}
+    \actor{admin}{11.0}{-6.3}{Administrator}
+
+    % --- Powiazania goscia ---
+    \draw (guest) -- (u1.west);
+    \draw (guest) -- (u2.west);
+    \draw (guest) -- (u3.west);
+
+    % --- Powiazania administratora ---
+    \draw (admin) -- (u4.east);
+    \draw (admin) -- (u5.east);
+    \draw (admin) -- (u6.east);
+    \draw (admin) -- (u7.east);
+  \end{tikzpicture}
+  \caption{Diagram przypadków użycia systemu U Alchemika}
+  \label{fig:usecase}
+\end{figure}
+
+\subsection{Wymagania funkcjonalne}
+
+\begin{longtable}{p{0.13\linewidth}p{0.18\linewidth}p{0.59\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Aktor} & \textbf{Wymaganie} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Aktor} & \textbf{Wymaganie} \\
+\midrule
+\endhead
+WF-01 & Gość & Przeglądanie listy aktywnych pokoi z~ceną i~pojemnością. \\
+WF-02 & Gość & Wyświetlanie szczegółów pokoju (galeria zdjęć, udogodnienia, cena). \\
+WF-03 & Gość & Wysłanie zapytania rezerwacyjnego z~opcjonalnym wskazaniem pokoju i~zakresu dat. \\
+WF-04 & Administrator & Zarządzanie statusem zapytań (new / replied / closed). \\
+WF-05 & Administrator & Operacje CRUD na pokojach, udogodnieniach i~ich powiązaniach. \\
+WF-06 & Administrator & Zarządzanie treścią: wpisy blogowe i~atrakcje turystyczne. \\
+WF-07 & Administrator & Edycja danych obiektu (\texttt{PropertyInfo}). \\
+WF-08 & Administrator & Podgląd logu audytu (tylko odczyt). \\
+\bottomrule
+\end{longtable}
+
+\subsection{Wymagania niefunkcjonalne}
+
+\begin{longtable}{p{0.13\linewidth}p{0.22\linewidth}p{0.55\linewidth}}
+\toprule
+\textbf{ID} & \textbf{Kategoria} & \textbf{Wymaganie} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{ID} & \textbf{Kategoria} & \textbf{Wymaganie} \\
+\midrule
+\endhead
+WN-01 & Integralność danych & Spójność referencyjna egzekwowana przez klucze obce ze strategiami CASCADE / SET NULL oraz ograniczenia UNIQUE. \\
+WN-02 & Wydajność & Zapytania filtrujące i~sortujące wspierane indeksami; weryfikacja planu zapytań przez \texttt{EXPLAIN ANALYZE}. \\
+WN-03 & Przenośność & Pełna konteneryzacja (Docker Compose) zapewniająca powtarzalne uruchomienie niezależnie od systemu operacyjnego. \\
+WN-04 & Pielęgnowalność & Wersjonowanie struktury bazy migracjami Django z~możliwością rollbacku. \\
+WN-05 & Bezpieczeństwo & Dostęp do panelu administracyjnego wyłącznie po uwierzytelnieniu; log audytu rejestrujący działania administratora. \\
+WN-06 & Niezawodność & Trwałość danych zapewniona przez nazwany wolumen PostgreSQL przeżywający restart kontenerów. \\
+WN-07 & Testowalność & Pokrycie kluczowych reguł integralności i~walidacji testami integracyjnymi Django. \\
+\bottomrule
+\end{longtable}
 
 \subsection{Zidentyfikowane encje}
 

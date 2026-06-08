@@ -217,3 +217,13 @@ __marimo__/
 
 # Lokalne notatki i plany (nie idą na GitHub)
 notes/
+
+# Artefakty kompilacji LaTeX (zostaje tylko .tex)
+*.aux
+*.out
+*.toc
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+docs/dokumentacja*.pdf

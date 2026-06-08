@@ -43,16 +43,16 @@
         </li>
         {% endif %}
 
-        {% if prop.check_in_time or prop.check_out_time %}
+        {% if prop.check_in or prop.check_out %}
         <li class="mb-3 d-flex align-items-start gap-2">
           <span class="fs-5">🕐</span>
           <div>
             <div class="fw-semibold">Godziny</div>
-            {% if prop.check_in_time %}
-              <div>Check-in od <strong>{{ prop.check_in_time }}</strong></div>
+            {% if prop.check_in %}
+              <div>Check-in od <strong>{{ prop.check_in }}</strong></div>
             {% endif %}
-            {% if prop.check_out_time %}
-              <div>Check-out do <strong>{{ prop.check_out_time }}</strong></div>
+            {% if prop.check_out %}
+              <div>Check-out do <strong>{{ prop.check_out }}</strong></div>
             {% endif %}
           </div>
         </li>
@@ -75,7 +75,7 @@
       {% endif %}
 
       <hr class="my-4">
-      <a href="{% url 'inquiry-create' %}" class="btn btn-primary">
+      <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">
         Wyślij zapytanie o pokój
       </a>
     </div>

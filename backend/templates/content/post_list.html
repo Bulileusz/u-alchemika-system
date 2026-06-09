@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Blog — U Alchemika{% endblock %}
+{% block title %}{% trans "Blog" %} — U Alchemika{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Blog</h1>
+<h1 class="mb-4">{% trans "Blog" %}</h1>
 <div class="row">
     {% for post in posts %}
     <div class="col-md-6 mb-4">
@@ -15,14 +16,14 @@
                 {% endif %}
                 <p class="card-text flex-grow-1">{{ post.content|truncatechars:150 }}</p>
                 <a href="{% url 'content:post_detail' post.slug %}" class="btn btn-outline-primary btn-sm mt-auto">
-                    Czytaj więcej
+                    {% trans "Czytaj więcej" %}
                 </a>
             </div>
         </div>
     </div>
     {% empty %}
     <div class="col">
-        <p class="text-muted">Brak wpisów blogowych.</p>
+        <p class="text-muted">{% trans "Brak wpisów blogowych." %}</p>
     </div>
     {% endfor %}
 </div>

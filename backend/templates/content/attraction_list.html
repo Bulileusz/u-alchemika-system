@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load i18n %}
 
-{% block title %}Atrakcje w okolicy — U Alchemika{% endblock %}
+{% block title %}{% trans "Atrakcje w okolicy" %} — U Alchemika{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Atrakcje w okolicy</h1>
+<h1 class="mb-4">{% trans "Atrakcje w okolicy" %}</h1>
 <div class="row">
     {% for attraction in attractions %}
     <div class="col-md-4 mb-4">
@@ -19,7 +20,7 @@
     </div>
     {% empty %}
     <div class="col">
-        <p class="text-muted">Brak atrakcji.</p>
+        <p class="text-muted">{% trans "Brak atrakcji." %}</p>
     </div>
     {% endfor %}
 </div>

@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block content %}
 <section class="container py-5">
-    <h1 class="mb-4">Nasze pokoje</h1>
+    <h1 class="mb-4">{% trans "Nasze pokoje" %}</h1>
 
     <div class="row g-4">
         {% for room in rooms %}
@@ -34,23 +35,23 @@
                     </p>
 
                     <p class="mb-1">
-                        <strong>Liczba osób:</strong> {{ room.capacity }}
+                        <strong>{% trans "Liczba osób:" %}</strong> {{ room.capacity }}
                     </p>
 
                     <p class="fw-bold">
-                        Od {{ room.base_price }} zł / noc
+                        {% blocktrans with price=room.base_price %}Od {{ price }} zł / noc{% endblocktrans %}
                     </p>
 
                     <a href="{% url 'core:room_detail' room.slug %}"
                        class="btn btn-primary">
-                        Zobacz szczegóły
+                        {% trans "Zobacz szczegóły" %}
                     </a>
                 </div>
 
             </div>
         </div>
         {% empty %}
-            <p>Brak dostępnych pokoi.</p>
+            <p>{% trans "Brak dostępnych pokoi." %}</p>
         {% endfor %}
     </div>
 </section>

@@ -8,10 +8,6 @@ def post_list(request):
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug, is_published=True)
-    return render(request, 'content/post_detail.html', {'posts': posts})
-
-def post_detail(request, slug):
-    post = get_object_or_404(Post, slug=slug, is_published=True)
     return render(request, 'content/post_detail.html', {'post': post})
 
 def attraction_list(request):

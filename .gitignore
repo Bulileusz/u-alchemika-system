@@ -217,6 +217,8 @@ __marimo__/
 
 # Lokalne notatki i plany (nie idą na GitHub)
 notes/
+pps.md
+Odpowiedzi.txt
 
 # Artefakty kompilacji LaTeX (zostaje tylko .tex)
 *.aux

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Kontakt — U Alchemika{% endblock %}
+{% block title %}{% trans "Kontakt" %} — U Alchemika{% endblock %}
 
 {% block content %}
 <div class="container py-5">
@@ -9,7 +10,7 @@
 
     {# Dane kontaktowe #}
     <div class="col-md-5">
-      <h1 class="mb-4">Kontakt</h1>
+      <h1 class="mb-4">{% trans "Kontakt" %}</h1>
 
       {% if prop %}
       <ul class="list-unstyled">
@@ -17,7 +18,7 @@
         <li class="mb-3 d-flex align-items-start gap-2">
           <span class="fs-5">📞</span>
           <div>
-            <div class="fw-semibold">Telefon</div>
+            <div class="fw-semibold">{% trans "Telefon" %}</div>
             <a href="tel:{{ prop.phone }}" class="text-decoration-none">{{ prop.phone }}</a>
           </div>
         </li>
@@ -27,7 +28,7 @@
         <li class="mb-3 d-flex align-items-start gap-2">
           <span class="fs-5">✉️</span>
           <div>
-            <div class="fw-semibold">E-mail</div>
+            <div class="fw-semibold">{% trans "E-mail" %}</div>
             <a href="mailto:{{ prop.email }}" class="text-decoration-none">{{ prop.email }}</a>
           </div>
         </li>
@@ -37,7 +38,7 @@
         <li class="mb-3 d-flex align-items-start gap-2">
           <span class="fs-5">📍</span>
           <div>
-            <div class="fw-semibold">Adres</div>
+            <div class="fw-semibold">{% trans "Adres" %}</div>
             <address class="mb-0">{{ prop.address }}</address>
           </div>
         </li>
@@ -47,12 +48,12 @@
         <li class="mb-3 d-flex align-items-start gap-2">
           <span class="fs-5">🕐</span>
           <div>
-            <div class="fw-semibold">Godziny</div>
+            <div class="fw-semibold">{% trans "Godziny" %}</div>
             {% if prop.check_in %}
-              <div>Check-in od <strong>{{ prop.check_in }}</strong></div>
+              <div>{% blocktrans with t=prop.check_in %}Check-in od <strong>{{ t }}</strong>{% endblocktrans %}</div>
             {% endif %}
             {% if prop.check_out %}
-              <div>Check-out do <strong>{{ prop.check_out }}</strong></div>
+              <div>{% blocktrans with t=prop.check_out %}Check-out do <strong>{{ t }}</strong>{% endblocktrans %}</div>
             {% endif %}
           </div>
         </li>
@@ -64,19 +65,19 @@
           <div>
             <div class="fw-semibold">Facebook</div>
             <a href="{{ prop.facebook_url }}" target="_blank" rel="noopener">
-              Odwiedź nasz profil
+              {% trans "Odwiedź nasz profil" %}
             </a>
           </div>
         </li>
         {% endif %}
       </ul>
       {% else %}
-        <p class="text-muted">Dane kontaktowe niedostępne.</p>
+        <p class="text-muted">{% trans "Dane kontaktowe niedostępne." %}</p>
       {% endif %}
 
       <hr class="my-4">
       <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">
-        Wyślij zapytanie o pokój
+        {% trans "Wyślij zapytanie o pokój" %}
       </a>
     </div>
 
@@ -85,7 +86,7 @@
       <div class="ratio ratio-16x9 rounded shadow-sm overflow-hidden bg-light
                   d-flex align-items-center justify-content-center">
         <p class="text-muted text-center p-3">
-          Tu możesz osadzić mapę Google Maps lub zdjęcie obiektu.
+          {% trans "Tu możesz osadzić mapę Google Maps lub zdjęcie obiektu." %}
         </p>
       </div>
     </div>

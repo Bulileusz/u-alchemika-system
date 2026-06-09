@@ -6,6 +6,7 @@ from django.urls import include, path
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("i18n/", include("django.conf.urls.i18n")),
     path("", include("apps.core.urls")),
     path("", include("apps.content.urls")),
     path("login/", auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),

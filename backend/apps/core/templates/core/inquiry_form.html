@@ -1,19 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 
-{% block title %}Zapytanie o pobyt — U Alchemika{% endblock %}
+{% block title %}{% trans "Zapytanie o pobyt" %} — U Alchemika{% endblock %}
 
 {% block content %}
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-lg-7">
 
-      <h1 class="mb-1">Zapytaj o pobyt</h1>
+      <h1 class="mb-1">{% trans "Zapytaj o pobyt" %}</h1>
       <p class="text-muted mb-4">
-        Wypełnij formularz, a odezwiemy się najszybciej jak to możliwe.
+        {% blocktrans with phone=property_info.phone %}Wypełnij formularz, a odezwiemy się najszybciej jak to możliwe.
         Możesz też zadzwonić:
-        <a href="tel:{{ property_info.phone }}">{{ property_info.phone }}</a>.
+        <a href="tel:{{ phone }}">{{ phone }}</a>.{% endblocktrans %}
       </p>
 
       {# Kontener HTMX — zagadnienie #15 #}

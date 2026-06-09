@@ -1,4 +1,4 @@
-
+{% load i18n %}
 
 <form
   hx-post="{% url 'core:inquiry-create' %}"
@@ -12,7 +12,7 @@
   {# Spinner widoczny podczas wysyłki HTMX #}
   <div id="form-spinner" class="htmx-indicator text-center py-2">
     <div class="spinner-border spinner-border-sm text-primary" role="status">
-      <span class="visually-hidden">Wysyłanie…</span>
+      <span class="visually-hidden">{% trans "Wysyłanie…" %}</span>
     </div>
   </div>
 
@@ -121,17 +121,18 @@
 
   <div class="mt-4 d-grid d-md-flex gap-2">
     <button type="submit" class="btn btn-primary px-5">
-      Wyślij zapytanie
+      {% trans "Wyślij zapytanie" %}
     </button>
     <a href="{% url 'core:contact' %}" class="btn btn-outline-secondary">
-      Kontakt
+      {% trans "Kontakt" %}
     </a>
   </div>
 
   <p class="mt-3 text-muted small">
-    Pola oznaczone <span class="text-danger">*</span> są wymagane.
+    {% url 'core:property-info' as privacy_url %}
+    {% blocktrans %}Pola oznaczone <span class="text-danger">*</span> są wymagane.
     Twoje dane przetwarzamy zgodnie z
-    <a href="{% url 'core:property-info' %}">polityką prywatności</a>.
+    <a href="{{ privacy_url }}">polityką prywatności</a>.{% endblocktrans %}
   </p>
 
 </form>

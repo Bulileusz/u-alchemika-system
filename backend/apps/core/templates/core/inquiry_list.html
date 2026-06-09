@@ -1,12 +1,13 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Panel — Zapytania{% endblock %}
+{% block title %}{% trans "Panel — Zapytania" %}{% endblock %}
 
 {% block content %}
 <div class="container-fluid py-4">
 
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h3 mb-0">Zapytania gości</h1>
+    <h1 class="h3 mb-0">{% trans "Zapytania gości" %}</h1>
     <span class="badge bg-secondary fs-6">{{ inquiries.count }}</span>
   </div>
 
@@ -16,13 +17,13 @@
       <thead class="table-light">
         <tr>
           <th>#</th>
-          <th>Gość</th>
-          <th>Pokój</th>
-          <th>Check-in</th>
-          <th>Check-out</th>
-          <th>Gości</th>
-          <th>Wysłane</th>
-          <th>Status</th>
+          <th>{% trans "Gość" %}</th>
+          <th>{% trans "Pokój" %}</th>
+          <th>{% trans "Check-in" %}</th>
+          <th>{% trans "Check-out" %}</th>
+          <th>{% trans "Gości" %}</th>
+          <th>{% trans "Wysłane" %}</th>
+          <th>{% trans "Status" %}</th>
         </tr>
       </thead>
       <tbody>
@@ -56,7 +57,7 @@
     </table>
   </div>
   {% else %}
-    <div class="alert alert-info">Brak zapytań.</div>
+    <div class="alert alert-info">{% trans "Brak zapytań." %}</div>
   {% endif %}
 
 </div>

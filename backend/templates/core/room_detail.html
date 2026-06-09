@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}{{ room.name }} - U Alchemika{% endblock %}
 
@@ -7,12 +8,12 @@
 <section class="room-detail-page">
   <div class="container">
     <a class="room-back-link" href="{% url 'core:room_list' %}">
-      &larr; Powrót do wszystkich pokoi
+      &larr; {% trans "Powrót do wszystkich pokoi" %}
     </a>
 
     <div class="room-detail-hero">
       <div class="room-detail-copy">
-        <p class="room-detail-kicker">Przytulny pokój dla {{ room.capacity }} os.</p>
+        <p class="room-detail-kicker">{% blocktrans with capacity=room.capacity %}Przytulny pokój dla {{ capacity }} os.{% endblocktrans %}</p>
         <h1>{{ room.name }}</h1>
 
         <p class="room-detail-description">
@@ -21,23 +22,23 @@
 
         <dl class="room-detail-meta">
           <div>
-            <dt>Liczba osób</dt>
+            <dt>{% trans "Liczba osób" %}</dt>
             <dd>{{ room.capacity }}</dd>
           </div>
           <div>
-            <dt>Cena</dt>
-            <dd>od {{ room.base_price }} zł / noc</dd>
+            <dt>{% trans "Cena" %}</dt>
+            <dd>{% blocktrans with price=room.base_price %}od {{ price }} zł / noc{% endblocktrans %}</dd>
           </div>
         </dl>
 
         <div class="room-detail-actions">
           {% if property_info and property_info.booking_url %}
             <a class="room-primary-btn" href="{{ property_info.booking_url }}" target="_blank">
-              Rezerwuj pobyt
+              {% trans "Rezerwuj pobyt" %}
             </a>
           {% endif %}
           <a class="room-secondary-btn" href="#">
-            Zapytaj o termin
+            {% trans "Zapytaj o termin" %}
           </a>
         </div>
       </div>
@@ -63,15 +64,15 @@
           <span class="room-feature-icon room-feature-icon-{{ amenity.icon|default:'default' }}" aria-hidden="true"></span>
           <div>
             <h2>{{ amenity.name }}</h2>
-            <p>Wygoda i spokojny odpoczynek podczas pobytu.</p>
+            <p>{% trans "Wygoda i spokojny odpoczynek podczas pobytu." %}</p>
           </div>
         </article>
       {% empty %}
         <article class="room-feature-card">
           <span class="room-feature-icon room-feature-icon-default" aria-hidden="true"></span>
           <div>
-            <h2>Komfortowy pobyt</h2>
-            <p>Szczegóły udogodnień dodamy wkrótce.</p>
+            <h2>{% trans "Komfortowy pobyt" %}</h2>
+            <p>{% trans "Szczegóły udogodnień dodamy wkrótce." %}</p>
           </div>
         </article>
       {% endfor %}

@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Informacje o obiekcie — U Alchemika{% endblock %}
+{% block title %}{% trans "Informacje o obiekcie" %} — U Alchemika{% endblock %}
 
 {% block content %}
 <div class="container py-5">
-  <h1 class="mb-5">Informacje o obiekcie</h1>
+  <h1 class="mb-5">{% trans "Informacje o obiekcie" %}</h1>
 
   {% if prop %}
   <div class="row g-4">
@@ -12,13 +13,13 @@
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">🕐 Godziny</h2>
+          <h2 class="h5 card-title mb-3">🕐 {% trans "Godziny" %}</h2>
           <ul class="list-unstyled mb-0">
             {% if prop.check_in %}
-            <li class="mb-1"><strong>Check-in:</strong> od {{ prop.check_in }}</li>
+            <li class="mb-1">{% blocktrans with t=prop.check_in %}<strong>Check-in:</strong> od {{ t }}{% endblocktrans %}</li>
             {% endif %}
             {% if prop.check_out %}
-            <li><strong>Check-out:</strong> do {{ prop.check_out }}</li>
+            <li>{% blocktrans with t=prop.check_out %}<strong>Check-out:</strong> do {{ t }}{% endblocktrans %}</li>
             {% endif %}
           </ul>
         </div>
@@ -29,7 +30,7 @@
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">💳 Płatności</h2>
+          <h2 class="h5 card-title mb-3">💳 {% trans "Płatności" %}</h2>
           <p class="mb-0">{{ prop.payment_info }}</p>
         </div>
       </div>
@@ -40,7 +41,7 @@
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">📋 Polityka anulowania</h2>
+          <h2 class="h5 card-title mb-3">📋 {% trans "Polityka anulowania" %}</h2>
           <p class="mb-0">{{ prop.cancellation_policy }}</p>
         </div>
       </div>
@@ -51,7 +52,7 @@
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">🅿️ Parking</h2>
+          <h2 class="h5 card-title mb-3">🅿️ {% trans "Parking" %}</h2>
           <p class="mb-0">{{ prop.parking_info }}</p>
         </div>
       </div>
@@ -62,7 +63,7 @@
     <div class="col-md-6">
       <div class="card h-100 border-0 shadow-sm">
         <div class="card-body">
-          <h2 class="h5 card-title mb-3">🐾 Zwierzęta</h2>
+          <h2 class="h5 card-title mb-3">🐾 {% trans "Zwierzęta" %}</h2>
           <p class="mb-0">{{ prop.pets_policy }}</p>
         </div>
       </div>
@@ -71,12 +72,12 @@
 
   </div>
   {% else %}
-    <p class="text-muted">Informacje o obiekcie niedostępne.</p>
+    <p class="text-muted">{% trans "Informacje o obiekcie niedostępne." %}</p>
   {% endif %}
 
   <div class="mt-5">
-    <a href="{% url 'core:contact' %}" class="btn btn-outline-primary me-2">Kontakt</a>
-    <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">Zapytaj o pobyt</a>
+    <a href="{% url 'core:contact' %}" class="btn btn-outline-primary me-2">{% trans "Kontakt" %}</a>
+    <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">{% trans "Zapytaj o pobyt" %}</a>
   </div>
 
 </div>

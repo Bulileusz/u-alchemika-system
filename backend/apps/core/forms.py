@@ -1,5 +1,6 @@
 from django import forms
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 from .models import Inquiry
 
 
@@ -12,7 +13,7 @@ class InquiryForm(forms.ModelForm):
         widgets = {
             "full_name": forms.TextInput(attrs={
                 "class": "form-control",
-                "placeholder": "Imię i nazwisko",
+                "placeholder": _("Imię i nazwisko"),
             }),
             "email": forms.EmailInput(attrs={
                 "class": "form-control",
@@ -41,26 +42,26 @@ class InquiryForm(forms.ModelForm):
             "message": forms.Textarea(attrs={
                 "class": "form-control",
                 "rows": 4,
-                "placeholder": "Dodatkowe pytania lub życzenia…",
+                "placeholder": _("Dodatkowe pytania lub życzenia…"),
                 "maxlength": 1000,
                 "id": "id_message",
             }),
         }
         labels = {
-            "full_name": "Imię i nazwisko",
-            "email": "Adres e-mail",
-            "phone": "Telefon (opcjonalnie)",
-            "room": "Pokój",
-            "date_from": "Data przyjazdu",
-            "date_to": "Data wyjazdu",
-            "guests": "Liczba gości",
-            "message": "Wiadomość",
+            "full_name": _("Imię i nazwisko"),
+            "email": _("Adres e-mail"),
+            "phone": _("Telefon (opcjonalnie)"),
+            "room": _("Pokój"),
+            "date_from": _("Data przyjazdu"),
+            "date_to": _("Data wyjazdu"),
+            "guests": _("Liczba gości"),
+            "message": _("Wiadomość"),
         }
 
     def clean_date_from(self):
         date_from = self.cleaned_data.get("date_from")
         if date_from and date_from < timezone.localdate():
-            raise forms.ValidationError("Data przyjazdu nie może być w przeszłości.")
+            raise forms.ValidationError(_("Data przyjazdu nie może być w przeszłości."))
         return date_from
 
     def clean(self):
@@ -70,8 +71,8 @@ class InquiryForm(forms.ModelForm):
         if date_from and date_to:
             if date_to <= date_from:
                 self.add_error("date_to",
-                               "Data wyjazdu musi być późniejsza niż data przyjazdu.")
+                               _("Data wyjazdu musi być późniejsza niż data przyjazdu."))
             elif (date_to - date_from).days > 30:
                 self.add_error("date_to",
-                               "Pobyt nie może trwać dłużej niż 30 dni.")
+                               _("Pobyt nie może trwać dłużej niż 30 dni."))
         return cleaned

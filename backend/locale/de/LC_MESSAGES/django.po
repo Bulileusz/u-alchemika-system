@@ -1,0 +1,482 @@
+# Niemieckie tłumaczenie interfejsu — Agroturystyka U Alchemika.
+# Copyright (C) 2026.
+# This file is distributed under the same license as the project.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: u-alchemika 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-06-09 08:47+0200\n"
+"PO-Revision-Date: 2026-06-09 09:00+0200\n"
+"Last-Translator: Zespół U Alchemika\n"
+"Language-Team: Deutsch\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/core/forms.py:16 apps/core/forms.py:51
+msgid "Imię i nazwisko"
+msgstr "Vor- und Nachname"
+
+#: apps/core/forms.py:45
+msgid "Dodatkowe pytania lub życzenia…"
+msgstr "Zusätzliche Fragen oder Wünsche…"
+
+#: apps/core/forms.py:52
+msgid "Adres e-mail"
+msgstr "E-Mail-Adresse"
+
+#: apps/core/forms.py:53
+msgid "Telefon (opcjonalnie)"
+msgstr "Telefon (optional)"
+
+#: apps/core/forms.py:54 apps/core/templates/core/inquiry_list.html:21
+msgid "Pokój"
+msgstr "Zimmer"
+
+#: apps/core/forms.py:55
+msgid "Data przyjazdu"
+msgstr "Anreisedatum"
+
+#: apps/core/forms.py:56
+msgid "Data wyjazdu"
+msgstr "Abreisedatum"
+
+#: apps/core/forms.py:57
+msgid "Liczba gości"
+msgstr "Anzahl der Gäste"
+
+#: apps/core/forms.py:58
+msgid "Wiadomość"
+msgstr "Nachricht"
+
+#: apps/core/forms.py:64
+msgid "Data przyjazdu nie może być w przeszłości."
+msgstr "Das Anreisedatum darf nicht in der Vergangenheit liegen."
+
+#: apps/core/forms.py:74 apps/core/models.py:100
+msgid "Data wyjazdu musi być późniejsza niż data przyjazdu."
+msgstr "Das Abreisedatum muss nach dem Anreisedatum liegen."
+
+#: apps/core/forms.py:77
+msgid "Pobyt nie może trwać dłużej niż 30 dni."
+msgstr "Der Aufenthalt darf nicht länger als 30 Tage dauern."
+
+#: apps/core/templates/core/_inquiry_form.html:15
+msgid "Wysyłanie…"
+msgstr "Wird gesendet…"
+
+#: apps/core/templates/core/_inquiry_form.html:124
+msgid "Wyślij zapytanie"
+msgstr "Anfrage senden"
+
+#: apps/core/templates/core/_inquiry_form.html:127
+#: apps/core/templates/core/contact.html:4
+#: apps/core/templates/core/contact.html:13
+#: apps/core/templates/core/property_info.html:79 templates/base.html:44
+#: templates/core/_contact_cta.html:26
+msgid "Kontakt"
+msgstr "Kontakt"
+
+#: apps/core/templates/core/_inquiry_form.html:133
+#, python-format
+msgid ""
+"Pola oznaczone <span class=\"text-danger\">*</span> są wymagane.\n"
+"    Twoje dane przetwarzamy zgodnie z\n"
+"    <a href=\"%(privacy_url)s\">polityką prywatności</a>."
+msgstr ""
+"Mit <span class=\"text-danger\">*</span> markierte Felder sind erforderlich. "
+"Ihre Daten verarbeiten wir gemäß der "
+"<a href=\"%(privacy_url)s\">Datenschutzerklärung</a>."
+
+#: apps/core/templates/core/_inquiry_success.html:12
+msgid "Zapytanie wysłane!"
+msgstr "Anfrage gesendet!"
+
+#: apps/core/templates/core/_inquiry_success.html:14
+#, python-format
+msgid "Dziękujemy, <strong>%(name)s</strong>."
+msgstr "Vielen Dank, <strong>%(name)s</strong>."
+
+#: apps/core/templates/core/_inquiry_success.html:17
+#, python-format
+msgid ""
+"Potwierdzenie wysłaliśmy na <strong>%(email)s</strong>.\n"
+"    Odpiszemy najszybciej jak to możliwe."
+msgstr ""
+"Eine Bestätigung haben wir an <strong>%(email)s</strong> gesendet. "
+"Wir antworten so schnell wie möglich."
+
+#: apps/core/templates/core/_inquiry_success.html:23
+msgid "Nowe zapytanie"
+msgstr "Neue Anfrage"
+
+#: apps/core/templates/core/_inquiry_success.html:26
+msgid "Wróć na stronę główną"
+msgstr "Zurück zur Startseite"
+
+#: apps/core/templates/core/contact.html:21
+msgid "Telefon"
+msgstr "Telefon"
+
+#: apps/core/templates/core/contact.html:31
+msgid "E-mail"
+msgstr "E-Mail"
+
+#: apps/core/templates/core/contact.html:41
+msgid "Adres"
+msgstr "Adresse"
+
+#: apps/core/templates/core/contact.html:51
+#: apps/core/templates/core/property_info.html:16
+msgid "Godziny"
+msgstr "Zeiten"
+
+#: apps/core/templates/core/contact.html:53
+#, python-format
+msgid "Check-in od <strong>%(t)s</strong>"
+msgstr "Check-in ab <strong>%(t)s</strong>"
+
+#: apps/core/templates/core/contact.html:56
+#, python-format
+msgid "Check-out do <strong>%(t)s</strong>"
+msgstr "Check-out bis <strong>%(t)s</strong>"
+
+#: apps/core/templates/core/contact.html:68
+msgid "Odwiedź nasz profil"
+msgstr "Besuchen Sie unser Profil"
+
+#: apps/core/templates/core/contact.html:75
+msgid "Dane kontaktowe niedostępne."
+msgstr "Kontaktdaten nicht verfügbar."
+
+#: apps/core/templates/core/contact.html:80
+msgid "Wyślij zapytanie o pokój"
+msgstr "Zimmeranfrage senden"
+
+#: apps/core/templates/core/contact.html:89
+msgid "Tu możesz osadzić mapę Google Maps lub zdjęcie obiektu."
+msgstr "Hier können Sie eine Google-Maps-Karte oder ein Foto des Objekts einbetten."
+
+#: apps/core/templates/core/inquiry_form.html:6
+msgid "Zapytanie o pobyt"
+msgstr "Aufenthaltsanfrage"
+
+#: apps/core/templates/core/inquiry_form.html:13
+#: apps/core/templates/core/property_info.html:80
+msgid "Zapytaj o pobyt"
+msgstr "Aufenthalt anfragen"
+
+#: apps/core/templates/core/inquiry_form.html:15
+#, python-format
+msgid ""
+"Wypełnij formularz, a odezwiemy się najszybciej jak to możliwe.\n"
+"        Możesz też zadzwonić:\n"
+"        <a href=\"tel:%(phone)s\">%(phone)s</a>."
+msgstr ""
+"Füllen Sie das Formular aus und wir melden uns so schnell wie möglich. "
+"Sie können auch anrufen: <a href=\"tel:%(phone)s\">%(phone)s</a>."
+
+#: apps/core/templates/core/inquiry_list.html:4
+msgid "Panel — Zapytania"
+msgstr "Panel — Anfragen"
+
+#: apps/core/templates/core/inquiry_list.html:10
+msgid "Zapytania gości"
+msgstr "Gästeanfragen"
+
+#: apps/core/templates/core/inquiry_list.html:20
+msgid "Gość"
+msgstr "Gast"
+
+#: apps/core/templates/core/inquiry_list.html:22
+msgid "Check-in"
+msgstr "Check-in"
+
+#: apps/core/templates/core/inquiry_list.html:23
+msgid "Check-out"
+msgstr "Check-out"
+
+#: apps/core/templates/core/inquiry_list.html:24
+msgid "Gości"
+msgstr "Gäste"
+
+#: apps/core/templates/core/inquiry_list.html:25
+msgid "Wysłane"
+msgstr "Gesendet"
+
+#: apps/core/templates/core/inquiry_list.html:26
+msgid "Status"
+msgstr "Status"
+
+#: apps/core/templates/core/inquiry_list.html:60
+msgid "Brak zapytań."
+msgstr "Keine Anfragen."
+
+#: apps/core/templates/core/property_info.html:4
+#: apps/core/templates/core/property_info.html:8
+msgid "Informacje o obiekcie"
+msgstr "Informationen zum Objekt"
+
+#: apps/core/templates/core/property_info.html:19
+#, python-format
+msgid "<strong>Check-in:</strong> od %(t)s"
+msgstr "<strong>Check-in:</strong> ab %(t)s"
+
+#: apps/core/templates/core/property_info.html:22
+#, python-format
+msgid "<strong>Check-out:</strong> do %(t)s"
+msgstr "<strong>Check-out:</strong> bis %(t)s"
+
+#: apps/core/templates/core/property_info.html:33
+msgid "Płatności"
+msgstr "Zahlungen"
+
+#: apps/core/templates/core/property_info.html:44
+msgid "Polityka anulowania"
+msgstr "Stornierungsbedingungen"
+
+#: apps/core/templates/core/property_info.html:55
+msgid "Parking"
+msgstr "Parkplatz"
+
+#: apps/core/templates/core/property_info.html:66
+msgid "Zwierzęta"
+msgstr "Haustiere"
+
+#: apps/core/templates/core/property_info.html:75
+msgid "Informacje o obiekcie niedostępne."
+msgstr "Informationen zum Objekt nicht verfügbar."
+
+#: apps/core/templates/registration/login.html:4
+#: apps/core/templates/registration/login.html:11
+msgid "Logowanie"
+msgstr "Anmeldung"
+
+#: apps/core/templates/registration/login.html:15
+msgid "Nieprawidłowy login lub hasło."
+msgstr "Ungültiger Benutzername oder Passwort."
+
+#: apps/core/templates/registration/login.html:25
+msgid "Login"
+msgstr "Benutzername"
+
+#: apps/core/templates/registration/login.html:40
+msgid "Hasło"
+msgstr "Passwort"
+
+#: apps/core/templates/registration/login.html:54
+msgid "Zaloguj się"
+msgstr "Anmelden"
+
+#: apps/core/views/inquiries.py:47
+msgid "Twoje zapytanie zostało wysłane!"
+msgstr "Ihre Anfrage wurde gesendet!"
+
+#: config/settings.py:82
+msgid "Polski"
+msgstr "Polnisch"
+
+#: config/settings.py:83
+msgid "Niemiecki"
+msgstr "Deutsch"
+
+#: templates/base.html:33
+msgid "Agroturystyka"
+msgstr "Agrotourismus"
+
+#: templates/base.html:39 templates/index.html:5
+msgid "Strona główna"
+msgstr "Startseite"
+
+#: templates/base.html:40
+msgid "Pokoje"
+msgstr "Zimmer"
+
+#: templates/base.html:41
+msgid "Atrakcje"
+msgstr "Attraktionen"
+
+#: templates/base.html:42 templates/content/post_list.html:4
+#: templates/content/post_list.html:7
+msgid "Blog"
+msgstr "Blog"
+
+#: templates/base.html:43 templates/core/gallery.html:5
+#: templates/core/gallery.html:16
+msgid "Galeria"
+msgstr "Galerie"
+
+#: templates/base.html:52
+msgid "Zarezerwuj"
+msgstr "Reservieren"
+
+#: templates/content/_attractions_teaser.html:3
+#: templates/content/attraction_list.html:4
+#: templates/content/attraction_list.html:7
+msgid "Atrakcje w okolicy"
+msgstr "Attraktionen in der Umgebung"
+
+#: templates/content/_attractions_teaser.html:19
+msgid "Wkrótce..."
+msgstr "Demnächst..."
+
+#: templates/content/_attractions_teaser.html:24
+msgid "Wszystkie atrakcje →"
+msgstr "Alle Attraktionen →"
+
+#: templates/content/attraction_list.html:23
+msgid "Brak atrakcji."
+msgstr "Keine Attraktionen."
+
+#: templates/content/post_detail.html:10
+msgid "Wróć do bloga"
+msgstr "Zurück zum Blog"
+
+#: templates/content/post_list.html:19
+msgid "Czytaj więcej"
+msgstr "Mehr lesen"
+
+#: templates/content/post_list.html:26
+msgid "Brak wpisów blogowych."
+msgstr "Keine Blogbeiträge."
+
+#: templates/core/_contact_cta.html:12
+msgid "Masz pytania?"
+msgstr "Haben Sie Fragen?"
+
+#: templates/core/_contact_cta.html:14
+msgid "Chętnie pomożemy wybrać odpowiedni pokój i termin."
+msgstr "Wir helfen Ihnen gern, das passende Zimmer und den passenden Termin zu finden."
+
+#: templates/core/_contact_cta.html:16
+#, python-format
+msgid ""
+"Zadzwoń: <a href=\"tel:%(phone)s\" class=\"fw-semibold text-decoration-"
+"none\">%(phone)s</a> lub wyślij zapytanie przez formularz."
+msgstr ""
+"Rufen Sie an: <a href=\"tel:%(phone)s\" class=\"fw-semibold text-decoration-"
+"none\">%(phone)s</a> oder senden Sie eine Anfrage über das Formular."
+
+#: templates/core/_contact_cta.html:23
+msgid "Zapytaj o pokój"
+msgstr "Zimmer anfragen"
+
+#: templates/core/_featured_rooms.html:8
+msgid "Poczuj się jak w domu"
+msgstr "Fühlen Sie sich wie zu Hause"
+
+#: templates/core/_featured_rooms.html:11 templates/core/room_list.html:7
+#: templates/index.html:35
+msgid "Nasze pokoje"
+msgstr "Unsere Zimmer"
+
+#: templates/core/_featured_rooms.html:38
+#, python-format
+msgid "%(capacity)s osoby · od %(price)s zł / noc"
+msgstr "%(capacity)s Personen · ab %(price)s zł / Nacht"
+
+#: templates/core/_featured_rooms.html:42
+msgid "Zobacz więcej →"
+msgstr "Mehr ansehen →"
+
+#: templates/core/_featured_rooms.html:48
+msgid "Brak wyróżnionych pokoi."
+msgstr "Keine hervorgehobenen Zimmer."
+
+#: templates/core/gallery.html:22
+msgid "Powiększ zdjęcie"
+msgstr "Bild vergrößern"
+
+#: templates/core/gallery.html:29
+msgid "Brak zdjęć w galerii."
+msgstr "Keine Bilder in der Galerie."
+
+#: templates/core/gallery.html:35
+msgid "Zamknij zdjęcie"
+msgstr "Bild schließen"
+
+#: templates/core/gallery.html:36
+msgid "Powiększone zdjęcie"
+msgstr "Vergrößertes Bild"
+
+#: templates/core/room_detail.html:11
+msgid "Powrót do wszystkich pokoi"
+msgstr "Zurück zu allen Zimmern"
+
+#: templates/core/room_detail.html:16
+#, python-format
+msgid "Przytulny pokój dla %(capacity)s os."
+msgstr "Gemütliches Zimmer für %(capacity)s Pers."
+
+#: templates/core/room_detail.html:25
+msgid "Liczba osób"
+msgstr "Personenzahl"
+
+#: templates/core/room_detail.html:29
+msgid "Cena"
+msgstr "Preis"
+
+#: templates/core/room_detail.html:30
+#, python-format
+msgid "od %(price)s zł / noc"
+msgstr "ab %(price)s zł / Nacht"
+
+#: templates/core/room_detail.html:37
+msgid "Rezerwuj pobyt"
+msgstr "Aufenthalt buchen"
+
+#: templates/core/room_detail.html:41
+msgid "Zapytaj o termin"
+msgstr "Nach Termin fragen"
+
+#: templates/core/room_detail.html:67
+msgid "Wygoda i spokojny odpoczynek podczas pobytu."
+msgstr "Komfort und erholsame Ruhe während des Aufenthalts."
+
+#: templates/core/room_detail.html:74
+msgid "Komfortowy pobyt"
+msgstr "Komfortabler Aufenthalt"
+
+#: templates/core/room_detail.html:75
+msgid "Szczegóły udogodnień dodamy wkrótce."
+msgstr "Details zu den Annehmlichkeiten folgen in Kürze."
+
+#: templates/core/room_list.html:38
+msgid "Liczba osób:"
+msgstr "Personenzahl:"
+
+#: templates/core/room_list.html:42
+#, python-format
+msgid "Od %(price)s zł / noc"
+msgstr "Ab %(price)s zł / Nacht"
+
+#: templates/core/room_list.html:47
+msgid "Zobacz szczegóły"
+msgstr "Details ansehen"
+
+#: templates/core/room_list.html:54
+msgid "Brak dostępnych pokoi."
+msgstr "Keine Zimmer verfügbar."
+
+#: templates/index.html:14
+msgid "Odpocznij"
+msgstr "Erholen Sie sich"
+
+#: templates/index.html:15
+msgid "blisko natury"
+msgstr "nah an der Natur"
+
+#: templates/index.html:19
+msgid ""
+"Komfortowe pokoje, spokojna okolica i prawdziwa\n"
+"      wiejska gościnność u podnóża Gór Izerskich."
+msgstr ""
+"Komfortable Zimmer, eine ruhige Umgebung und echte ländliche "
+"Gastfreundschaft am Fuße des Isergebirges."
+
+#: templates/index.html:30
+msgid "Zarezerwuj pobyt"
+msgstr "Aufenthalt reservieren"

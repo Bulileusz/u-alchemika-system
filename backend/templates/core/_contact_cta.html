@@ -1,3 +1,4 @@
+{% load i18n %}
 {% comment %}
   Partial CTA kontaktu — includowany przez index.html.
   Dane obiektu pochodzą z globalnego context processora (property_info).
@@ -8,23 +9,21 @@
     <div class="row align-items-center g-4">
 
       <div class="col-md-8">
-        <h2 class="h3 mb-2">Masz pytania?</h2>
+        <h2 class="h3 mb-2">{% trans "Masz pytania?" %}</h2>
         <p class="text-muted mb-0">
-          Chętnie pomożemy wybrać odpowiedni pokój i termin.
+          {% trans "Chętnie pomożemy wybrać odpowiedni pokój i termin." %}
           {% if property_info.phone %}
-            Zadzwoń: <a href="tel:{{ property_info.phone }}" class="fw-semibold text-decoration-none">
-              {{ property_info.phone }}
-            </a> lub wyślij zapytanie przez formularz.
+            {% blocktrans with phone=property_info.phone %}Zadzwoń: <a href="tel:{{ phone }}" class="fw-semibold text-decoration-none">{{ phone }}</a> lub wyślij zapytanie przez formularz.{% endblocktrans %}
           {% endif %}
         </p>
       </div>
 
       <div class="col-md-4 d-flex gap-2 justify-content-md-end flex-wrap">
         <a href="{% url 'core:inquiry-create' %}" class="btn btn-primary">
-          Zapytaj o pokój
+          {% trans "Zapytaj o pokój" %}
         </a>
         <a href="{% url 'core:contact' %}" class="btn btn-outline-secondary">
-          Kontakt
+          {% trans "Kontakt" %}
         </a>
       </div>
 

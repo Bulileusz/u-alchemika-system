@@ -1,5 +1,7 @@
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +12,32 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}?v=room-card-images">
+    <style>
+      /* Pasek nawigacji zawija elementy, zamiast ucinać je poza ekranem na węższych oknach */
+      .main-navbar .nav-links { flex-wrap: wrap; }
+
+      /* Przełącznik języka PL/DE */
+      .lang-switch {
+        display: inline-flex; gap: .35rem; align-items: center;
+        padding: .2rem .3rem; border-radius: .5rem;
+        background: rgba(32, 39, 31, 0.06);
+      }
+      .lang-switch .lang-btn {
+        border: 1px solid rgba(32, 39, 31, 0.35); background: #fff;
+        color: var(--dark, #20271f);
+        font-family: "Montserrat", Arial, sans-serif;
+        font-size: .8rem; font-weight: 700; letter-spacing: .08em; line-height: 1;
+        padding: .4rem .55rem; border-radius: .4rem; cursor: pointer; opacity: .8;
+      }
+      .lang-switch .lang-btn:hover { opacity: 1; }
+      .lang-switch .lang-btn.active {
+        opacity: 1; background: var(--green, #4a5d3a); color: #fff; border-color: transparent;
+      }
+      /* Na zwężonym / mobilnym navbarze przełącznik ląduje na osobnej, wyśrodkowanej linii */
+      @media (max-width: 1180px) {
+        .lang-switch { flex-basis: 100%; justify-content: center; }
+      }
+    </style>
 </head>
 <body>
 
@@ -18,17 +46,18 @@
     <a class="brand" href="/">
       <img class="brand-logo" src="{% static 'images/logo-u-alchemika.svg' %}" alt="U Alchemika">
       <div class="brand-text">
-        <span>Agroturystyka</span>
+        <span>{% trans "Agroturystyka" %}</span>
         <strong>U Alchemika</strong>
       </div>
     </a>
 
     <div class="nav-links">
-      <a href="/">Strona główna</a>
-      <a href="{% url 'core:room_list' %}">Pokoje</a>
-      <a href="{% url 'content:attraction_list' %}">Atrakcje</a>
-      <a href="{% url 'core:gallery' %}">Galeria</a>
-      <a href="{% url 'core:contact' %}">Kontakt</a>
+      <a href="/">{% trans "Strona główna" %}</a>
+      <a href="{% url 'core:room_list' %}">{% trans "Pokoje" %}</a>
+      <a href="{% url 'content:attraction_list' %}">{% trans "Atrakcje" %}</a>
+      <a href="{% url 'content:post_list' %}">{% trans "Blog" %}</a>
+      <a href="{% url 'core:gallery' %}">{% trans "Galeria" %}</a>
+      <a href="{% url 'core:contact' %}">{% trans "Kontakt" %}</a>
 
       {% if property_info and property_info.booking_url %}
         <a class="reservation-btn" href="{{ property_info.booking_url }}" target="_blank">
@@ -36,9 +65,18 @@
             <path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
             <path d="m9 14 2 2 4-5"/>
           </svg>
-          Zarezerwuj
+          {% trans "Zarezerwuj" %}
         </a>
       {% endif %}
+
+      <form action="{% url 'set_language' %}" method="post" class="lang-switch">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ request.path }}">
+        <button type="submit" name="language" value="pl"
+                class="lang-btn{% if LANGUAGE_CODE == 'pl' %} active{% endif %}">PL</button>
+        <button type="submit" name="language" value="de"
+                class="lang-btn{% if LANGUAGE_CODE == 'de' %} active{% endif %}">DE</button>
+      </form>
     </div>
   </div>
 </nav>

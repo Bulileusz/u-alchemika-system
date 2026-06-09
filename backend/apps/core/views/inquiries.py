@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from django.views.decorators.cache import cache_page
 from django.views.decorators.http import require_http_methods
 from django.contrib import messages
+from django.utils.translation import gettext as _
 
 from ..forms import InquiryForm
 from ..models import Inquiry, PropertyInfo
@@ -43,7 +44,7 @@ def inquiry_create(request, room_slug=None):
                 return render(request, "core/_inquiry_success.html",
                               {"inquiry": inquiry})
 
-            messages.success(request, "Twoje zapytanie zostało wysłane!")
+            messages.success(request, _("Twoje zapytanie zostało wysłane!"))
             return redirect("inquiry-create")
 
         else:

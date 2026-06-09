@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 {% load static %}
+{% load i18n %}
 
-{% block title %}Strona główna - U Alchemika{% endblock %}
+{% block title %}{% trans "Strona główna" %} - U Alchemika{% endblock %}
 
 {% block content %}
 
@@ -10,13 +11,13 @@
     <p class="hero-label">Agroturystyka U Alchemika</p>
 
     <h1>
-      Odpocznij
-      <span>blisko natury</span>
+      {% trans "Odpocznij" %}
+      <span>{% trans "blisko natury" %}</span>
     </h1>
 
     <p class="hero-text">
-      Komfortowe pokoje, spokojna okolica i prawdziwa
-      wiejska gościnność u podnóża Gór Izerskich.
+      {% blocktrans %}Komfortowe pokoje, spokojna okolica i prawdziwa
+      wiejska gościnność u podnóża Gór Izerskich.{% endblocktrans %}
     </p>
 
     <div class="hero-actions">
@@ -26,12 +27,12 @@
             <path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z"/>
             <path d="m9 14 2 2 4-5"/>
           </svg>
-          Zarezerwuj pobyt
+          {% trans "Zarezerwuj pobyt" %}
         </a>
       {% endif %}
 
       <a href="{% url 'core:room_list' %}" class="hero-btn hero-btn-light">
-        Nasze pokoje
+        {% trans "Nasze pokoje" %}
         <span aria-hidden="true">→</span>
       </a>
     </div>

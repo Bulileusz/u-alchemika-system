@@ -1,13 +1,14 @@
 {% load static %}
+{% load i18n %}
 
 <section class="featured-rooms-section">
   <div class="container">
     <div class="section-kicker-wrap">
       <span class="leaf-mark" aria-hidden="true"></span>
-      <p class="section-kicker">Poczuj się jak w domu</p>
+      <p class="section-kicker">{% trans "Poczuj się jak w domu" %}</p>
       <span class="leaf-mark leaf-mark-right" aria-hidden="true"></span>
     </div>
-    <h2 class="section-title">Nasze pokoje</h2>
+    <h2 class="section-title">{% trans "Nasze pokoje" %}</h2>
 
     <div class="row g-4">
       {% for room in featured_rooms %}
@@ -34,17 +35,17 @@
               <p>{{ room.description|truncatewords:12 }}</p>
 
               <p class="featured-room-meta">
-                {{ room.capacity }} osoby · od {{ room.base_price }} zł / noc
+                {% blocktrans with capacity=room.capacity price=room.base_price %}{{ capacity }} osoby · od {{ price }} zł / noc{% endblocktrans %}
               </p>
 
               <a href="{% url 'core:room_detail' room.slug %}">
-                Zobacz więcej →
+                {% trans "Zobacz więcej →" %}
               </a>
             </div>
           </article>
         </div>
       {% empty %}
-        <p>Brak wyróżnionych pokoi.</p>
+        <p>{% trans "Brak wyróżnionych pokoi." %}</p>
       {% endfor %}
     </div>
   </div>

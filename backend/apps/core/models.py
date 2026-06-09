@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Amenity(models.Model):
@@ -96,7 +97,7 @@ class Inquiry(models.Model):
 
     def clean(self):
         if self.date_from and self.date_to and self.date_to < self.date_from:
-            raise ValidationError('Data wyjazdu musi być późniejsza niż data przyjazdu.')
+            raise ValidationError(_('Data wyjazdu musi być późniejsza niż data przyjazdu.'))
 
     def __str__(self):
         return f'{self.full_name} ({self.get_status_display()})'

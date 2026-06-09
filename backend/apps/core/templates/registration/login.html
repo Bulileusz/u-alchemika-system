@@ -1,17 +1,18 @@
 {% extends "base.html" %}
+{% load i18n %}
 
-{% block title %}Logowanie — U Alchemika{% endblock %}
+{% block title %}{% trans "Logowanie" %} — U Alchemika{% endblock %}
 
 {% block content %}
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-sm-8 col-md-5 col-lg-4">
 
-      <h1 class="h3 text-center mb-4">Logowanie</h1>
+      <h1 class="h3 text-center mb-4">{% trans "Logowanie" %}</h1>
 
       {% if form.errors %}
         <div class="alert alert-danger">
-          Nieprawidłowy login lub hasło.
+          {% trans "Nieprawidłowy login lub hasło." %}
         </div>
       {% endif %}
 
@@ -21,7 +22,7 @@
 
         <div class="mb-3">
           <label for="{{ form.username.id_for_label }}" class="form-label">
-            Login
+            {% trans "Login" %}
           </label>
           <input
             type="text"
@@ -36,7 +37,7 @@
 
         <div class="mb-4">
           <label for="{{ form.password.id_for_label }}" class="form-label">
-            Hasło
+            {% trans "Hasło" %}
           </label>
           <input
             type="password"
@@ -50,7 +51,7 @@
 
         <div class="d-grid">
           <button type="submit" class="btn btn-primary">
-            Zaloguj się
+            {% trans "Zaloguj się" %}
           </button>
         </div>
 

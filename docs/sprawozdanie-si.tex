@@ -320,9 +320,10 @@ HTTP przedstawia rysunek~\ref{fig:mvt}.
     \draw[->] (url) -- node[lbl]{dispatch} (view);
     \draw[->] (view) to[bend left=18] node[lbl, sloped]{zapytanie} (model);
     \draw[->] (model) to[bend left=18] node[lbl, sloped, below]{dane} (view);
-    \draw[->] (view) -- node[lbl, sloped]{kontekst} (tmpl);
     \draw[->] (model) -- node[lbl]{SQL} (db);
-    \draw[->] (tmpl.south) to[bend right=25] node[lbl, below]{HTML} (-2.4,-1.6);
+    \draw[->] (view) to[bend right=18] node[lbl, sloped]{kontekst} (tmpl);
+    \draw[->] (tmpl) to[bend right=18] node[lbl, sloped, below]{HTML} (view);
+    \draw[->] (view.south) to[bend right=22] node[lbl, below]{odpowiedź} (-2.4,-1.6);
   \end{tikzpicture}
   \caption{Przepływ żądania HTTP w~architekturze MVT}
   \label{fig:mvt}

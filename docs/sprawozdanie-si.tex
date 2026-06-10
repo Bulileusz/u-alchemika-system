@@ -1,0 +1,835 @@
+% !TEX encoding = UTF-8 Unicode
+% !TEX program = pdflatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{{./}{docs/}}
+\usepackage{parskip}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, positioning, arrows.meta, fit, backgrounds}
+% hyperref ladowany na koncu preambury, zeby uniknac konfliktow z innymi pakietami
+\usepackage{hyperref}
+
+\geometry{
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+}
+
+% --- Kolory i styl listings ---
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{keywordcolor}{RGB}{0,0,180}
+\definecolor{commentcolor}{RGB}{100,100,100}
+\definecolor{stringcolor}{RGB}{180,0,0}
+\definecolor{accent}{RGB}{74,93,58}      % zielen marki U Alchemika
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  commentstyle=\color{commentcolor}\itshape,
+  stringstyle=\color{stringcolor},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=4,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  captionpos=b,
+  literate=%
+    {ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+    {ó}{{\'o}}1 {ś}{{\'s}}1 {ż}{{\.z}}1 {ź}{{\'z}}1
+    {Ą}{{\k{A}}}1 {Ć}{{\'C}}1 {Ę}{{\k{E}}}1 {Ł}{{\L{}}}1 {Ń}{{\'N}}1
+    {Ó}{{\'O}}1 {Ś}{{\'S}}1 {Ż}{{\.Z}}1 {Ź}{{\'Z}}1
+}
+
+\lstdefinestyle{djangostyle}{
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{keywordcolor}\bfseries,
+  commentstyle=\color{commentcolor}\itshape,
+  stringstyle=\color{stringcolor},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=b,
+  morekeywords={trans,blocktrans,load,block,extends,include,url,csrf_token,if,endif,for,endfor},
+  literate=%
+    {ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+    {ó}{{\'o}}1 {ś}{{\'s}}1 {ż}{{\.z}}1 {ź}{{\'z}}1
+}
+
+\lstdefinestyle{yamlstyle}{
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{keywordcolor},
+  commentstyle=\color{commentcolor}\itshape,
+  stringstyle=\color{stringcolor},
+  breaklines=true,
+  showstringspaces=false,
+  tabsize=2,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  captionpos=b,
+}
+
+\lstdefinestyle{consolestyle}{
+  backgroundcolor=\color{codebg},
+  frame=single,
+  rulecolor=\color{codeframe},
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  captionpos=b,
+  literate=%
+    {ą}{{\k{a}}}1 {ć}{{\'c}}1 {ę}{{\k{e}}}1 {ł}{{\l{}}}1 {ń}{{\'n}}1
+    {ó}{{\'o}}1 {ś}{{\'s}}1 {ż}{{\.z}}1 {ź}{{\'z}}1
+}
+
+% --- Nagłówek/stopka ---
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{U Alchemika -- Sprawozdanie z pracy projektowej}
+\lhead{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Hyperref ---
+\hypersetup{
+  colorlinks=true,
+  linkcolor=accent,
+  urlcolor=accent,
+  citecolor=accent,
+  pdftitle={U Alchemika System -- Sprawozdanie (Projektowanie i programowanie systemow internetowych I)},
+  pdfauthor={Maciej Bulhak, Malgorzata Bulhak, Hubert Olszak},
+}
+
+% Skrot na "ptaszek" zaliczenia
+\newcommand{\ok}{\textcolor{accent}{\textbf{\checkmark}}}
+\newcommand{\no}{\textcolor{red}{\textbf{--}}}
+
+% ---------------------------------------------------------------
+\begin{document}
+
+% ===================== STRONA TYTUŁOWA =====================
+\begin{titlepage}
+  \centering
+  \vspace*{1.5cm}
+  {\LARGE\bfseries Collegium Witelona \par}
+  \vspace{0.5cm}
+  {\large Projektowanie i programowanie systemów internetowych I \par}
+  \vspace{2.5cm}
+
+  \rule{\linewidth}{0.5mm}
+  \vspace{0.6cm}
+  {\Huge\bfseries U Alchemika System \par}
+  \vspace{0.4cm}
+  {\Large Aplikacja internetowa obiektu agroturystycznego \par}
+  \vspace{0.4cm}
+  {\large\itshape Sprawozdanie z pracy projektowej \par}
+  \rule{\linewidth}{0.5mm}
+
+  \vspace{2cm}
+  \begin{tabular}{rl}
+    \textbf{Autorzy:}        & Maciej Bułhak \\[4pt]
+                             & Małgorzata Bułhak \\[4pt]
+                             & Hubert Olszak \\[4pt]
+    \textbf{Przedmiot:}      & Projektowanie i programowanie \\
+                             & systemów internetowych I \\[4pt]
+    \textbf{Rok akademicki:} & 2025/2026 \\[4pt]
+    \textbf{Data:}           & \today \\[4pt]
+    \textbf{Stos technologiczny:} & Django 4.2 (MVT) + PostgreSQL 16 \\
+                             & + Bootstrap 5 + HTMX + Docker \\
+  \end{tabular}
+
+  \vfill
+  {\small Sprawozdanie przygotowane w~technologii \LaTeX{} zgodnie z~wymaganiami zaliczenia. \par}
+  {\small Repozytorium: \url{https://github.com/Bulileusz/u-alchemika-system} \par}
+\end{titlepage}
+
+% ===================== SPIS TREŚCI =====================
+\tableofcontents
+\newpage
+
+% ===================== WSTĘP =====================
+\section{Wprowadzenie}
+
+Niniejsze sprawozdanie dokumentuje pracę projektową zrealizowaną w~ramach kursu
+\emph{Projektowanie i~programowanie systemów internetowych~I}. Przedmiotem projektu
+jest \textbf{kompletna aplikacja internetowa} dla obiektu agroturystycznego
+\textbf{„U Alchemika”}, położonego w~Górach Izerskich. Aplikacja udostępnia
+publiczną witrynę prezentującą ofertę noclegową oraz wewnętrzny panel obsługi
+zapytań rezerwacyjnych.
+
+Projekt jest realizowany wspólnie z~kursem \emph{Projektowanie systemów baz danych}
+na jednym, współdzielonym repozytorium i~kodzie źródłowym. Warstwa danych
+(model relacyjny, migracje, integralność) została szczegółowo opisana w~osobnym
+dokumencie \texttt{docs/dokumentacja.tex}. Niniejsze sprawozdanie koncentruje się na
+\textbf{warstwie internetowej}: funkcjonalności, technologiach webowych
+i~wdrożonych zagadnieniach kwalifikacyjnych.
+
+\subsection{Skład zespołu i podział prac}
+
+\begin{longtable}{p{0.30\linewidth}p{0.62\linewidth}}
+\toprule
+\textbf{Osoba} & \textbf{Zakres odpowiedzialności} \\
+\midrule
+\endhead
+Maciej Bułhak & Model danych, migracje, integralność, warstwa dostępu do danych
+  (ORM), konfiguracja projektu, konteneryzacja, dokumentacja. \\[4pt]
+Małgorzata Bułhak & Moduł zapytań rezerwacyjnych (formularze, walidacja, mailing),
+  panel obsługi, logowanie zdarzeń. \\[4pt]
+Hubert Olszak & Warstwa prezentacji: szablony HTML, style CSS, responsywność (RWD),
+  interaktywność po stronie klienta (JavaScript), dane testowe. \\
+\bottomrule
+\end{longtable}
+
+\noindent\textit{Uwaga: zgodnie z~zasadami zaliczenia cały zespół otrzymuje wspólną
+ocenę, a~każdy członek zna całość rozwiązania.}
+
+\subsection{Struktura dokumentu}
+
+Sprawozdanie obejmuje, zgodnie z~wymaganiami: opis funkcjonalny systemu
+(sekcja~\ref{sec:funkcjonalny}), opis technologiczny (sekcja~\ref{sec:technologiczny}),
+wyszczególnienie wdrożonych zagadnień kwalifikacyjnych
+(sekcja~\ref{sec:zagadnienia}), instrukcję lokalnego i~zdalnego uruchomienia
+systemu (sekcja~\ref{sec:uruchomienie}) oraz wnioski projektowe
+(sekcja~\ref{sec:wnioski}).
+
+% ===================== OPIS FUNKCJONALNY =====================
+\section{Opis funkcjonalny systemu}
+\label{sec:funkcjonalny}
+
+\subsection{Cel i charakterystyka systemu}
+
+System \textbf{U Alchemika} to witryna internetowa obiektu noclegowego, której
+zadaniem jest prezentacja oferty oraz pozyskiwanie zapytań rezerwacyjnych od gości.
+Przyjęto świadome założenie, że system \textbf{nie realizuje pełnej rezerwacji
+online} -- gość wysyła zapytanie, a~finalizacja odbywa się poza systemem (kontakt
+bezpośredni lub przekierowanie do serwisu Booking.com). Dzięki temu zakres
+funkcjonalny jest skupiony i~kompletny w~obrębie zdefiniowanych przypadków użycia.
+
+\subsection{Aktorzy systemu}
+
+\begin{description}[nosep]
+  \item[Gość (użytkownik anonimowy)] -- przegląda ofertę (pokoje, galeria,
+    atrakcje, blog) i~wysyła zapytanie rezerwacyjne. Nie wymaga konta.
+  \item[Administrator / obsługa] -- po uwierzytelnieniu przegląda nadesłane
+    zapytania w~panelu wewnętrznym oraz zarządza całością danych poprzez panel
+    Django Admin.
+\end{description}
+
+\subsection{Mapa funkcji (strony publiczne)}
+
+\begin{longtable}{p{0.26\linewidth}p{0.24\linewidth}p{0.42\linewidth}}
+\toprule
+\textbf{Strona} & \textbf{Adres (URL)} & \textbf{Funkcja} \\
+\midrule
+\endhead
+Strona główna   & \texttt{/}                 & Sekcja hero, polecane pokoje, zajawka atrakcji, CTA kontaktu. \\
+Lista pokoi     & \texttt{/pokoje/}          & Karty aktywnych pokoi z~ceną i~pojemnością. \\
+Szczegóły pokoju& \texttt{/pokoje/<slug>/}   & Galeria, opis, udogodnienia, cena, przejście do zapytania. \\
+Galeria         & \texttt{/galeria/}         & Zdjęcia obiektu z~powiększaniem (lightbox). \\
+Atrakcje        & \texttt{/atrakcje/}        & Lista atrakcji turystycznych okolicy. \\
+Blog            & \texttt{/blog/}            & Lista opublikowanych wpisów. \\
+Wpis blogowy    & \texttt{/blog/<slug>/}     & Treść pojedynczego wpisu. \\
+Kontakt         & \texttt{/kontakt/}         & Dane kontaktowe obiektu (z~cache). \\
+Obiekt          & \texttt{/obiekt/}          & Polityki obiektu (check-in/out, zwierzęta, płatności). \\
+Zapytanie       & \texttt{/zapytanie/}       & Formularz zapytania rezerwacyjnego (HTMX). \\
+\bottomrule
+\end{longtable}
+
+\subsection{Mapa funkcji (część chroniona)}
+
+\begin{longtable}{p{0.26\linewidth}p{0.26\linewidth}p{0.40\linewidth}}
+\toprule
+\textbf{Strona} & \textbf{Adres (URL)} & \textbf{Funkcja} \\
+\midrule
+\endhead
+Logowanie        & \texttt{/login/}            & Uwierzytelnienie obsługi. \\
+Panel zapytań    & \texttt{/panel/zapytania/}  & Lista zapytań (dostęp tylko po zalogowaniu). \\
+Panel administracyjny & \texttt{/admin/}       & Pełny CRUD na wszystkich encjach (Django Admin). \\
+Przełącznik języka & \texttt{/i18n/setlang/}   & Zmiana języka interfejsu PL$\leftrightarrow$DE. \\
+\bottomrule
+\end{longtable}
+
+\subsection{Scenariusz kluczowy: wysłanie zapytania rezerwacyjnego}
+
+Najważniejszy przepływ biznesowy łączy kilka mechanizmów technicznych w~jednej
+interakcji użytkownika:
+
+\begin{enumerate}[nosep]
+  \item Gość wypełnia formularz zapytania na stronie \texttt{/zapytanie/}.
+  \item Formularz jest wysyłany \textbf{asynchronicznie} (HTMX) -- bez przeładowania strony.
+  \item Serwer waliduje dane (poprawność e-maila, daty, długość pobytu).
+  \item Po sukcesie: zapytanie zostaje \textbf{zapisane w~bazie}, na adres gościa
+    wysyłany jest \textbf{e-mail potwierdzający}, a~zdarzenie trafia do \textbf{logów}.
+  \item Gość widzi sekcję podziękowania (fragment HTML podmieniony przez HTMX).
+  \item Zapytanie pojawia się w~panelu obsługi \texttt{/panel/zapytania/}.
+\end{enumerate}
+
+Ten pojedynczy scenariusz demonstruje jednocześnie zagadnienia: formularze,
+asynchroniczność, baza danych, mailing oraz logger.
+
+% ===================== OPIS TECHNOLOGICZNY =====================
+\section{Opis technologiczny}
+\label{sec:technologiczny}
+
+\subsection{Stos technologiczny}
+
+\begin{longtable}{p{0.26\linewidth}p{0.30\linewidth}p{0.34\linewidth}}
+\toprule
+\textbf{Warstwa} & \textbf{Technologia} & \textbf{Rola w~projekcie} \\
+\midrule
+\endhead
+Backend / framework & Django 4.2 (Python 3.12) & Logika aplikacji, routing, ORM, szablony. \\
+Baza danych         & PostgreSQL 16            & Trwałe przechowywanie danych. \\
+Framework CSS       & Bootstrap 5.3.3 (CDN)    & Siatka, komponenty, responsywność. \\
+Interaktywność      & HTMX 1.9.12 + własny JS  & Asynchroniczne wysłanie formularza, walidacja klienta. \\
+Poczta (dev)        & MailHog                  & Przechwytywanie maili w~środowisku lokalnym. \\
+Cache               & LocMemCache (\texttt{django-redis} gotowy) & Buforowanie danych rzadko zmienianych. \\
+Zależności          & pip + \texttt{requirements.txt} & Zarządzanie bibliotekami. \\
+Konteneryzacja      & Docker Compose           & Wdrożenie (web + db + mailhog). \\
+\bottomrule
+\end{longtable}
+
+\subsection{Architektura MVT}
+
+Django realizuje wzorzec \textbf{MVT} (Model--View--Template) -- odmianę
+klasycznego MVC, w~której rolę kontrolera pełni \emph{View}, a~rolę widoku
+z~MVC przejmuje \emph{Template}.
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[
+    box/.style={rectangle, draw, thick, rounded corners, align=center,
+                minimum width=2.7cm, minimum height=1.1cm, font=\small},
+    lbl/.style={font=\scriptsize\itshape, midway, above},
+    >={Stealth[length=2.5mm]}
+  ]
+    \node[box, fill=accent!10] (url)   at (0,0)    {URLconf\\\texttt{urls.py}};
+    \node[box, fill=accent!10] (view)  at (3.8,0)  {View\\\texttt{views/}};
+    \node[box, fill=accent!10] (model) at (7.6,1.2){Model + ORM\\\texttt{models.py}};
+    \node[box, fill=accent!10] (tmpl)  at (7.6,-1.2){Template\\\texttt{templates/}};
+    \node[box, fill=gray!8]    (db)    at (11.2,1.2){PostgreSQL};
+
+    \draw[->] (-2.4,0) -- node[lbl]{żądanie} (url.west);
+    \draw[->] (url) -- node[lbl]{dispatch} (view);
+    \draw[->] (view) to[bend left=18] node[lbl, sloped]{zapytanie} (model);
+    \draw[->] (model) to[bend left=18] node[lbl, sloped, below]{dane} (view);
+    \draw[->] (view) -- node[lbl, sloped]{kontekst} (tmpl);
+    \draw[->] (model) -- node[lbl]{SQL} (db);
+    \draw[->] (tmpl.south) to[bend right=25] node[lbl, below]{HTML} (-2.4,-1.6);
+  \end{tikzpicture}
+  \caption{Przepływ żądania HTTP w~architekturze MVT}
+  \label{fig:mvt}
+\end{figure}
+
+\begin{itemize}[nosep]
+  \item \textbf{Model} (\texttt{apps/core/models.py}, \texttt{apps/content/models.py})
+    -- definicje danych i~reguł biznesowych, mapowane przez ORM na tabele.
+  \item \textbf{View} (\texttt{apps/core/views/}, \texttt{apps/content/views.py})
+    -- logika obsługi żądania: pobranie danych, wybór szablonu, walidacja.
+  \item \textbf{Template} (\texttt{templates/}) -- szablony HTML z~dziedziczeniem
+    (\texttt{base.html}) i~partialami dołączanymi przez \texttt{\{\% include \%\}}.
+\end{itemize}
+
+\subsection{Organizacja kodu}
+
+Projekt podzielono na dwie aplikacje Django o~jasno rozdzielonej odpowiedzialności:
+
+\begin{itemize}[nosep]
+  \item \texttt{apps/core} -- pokoje, udogodnienia, zapytania rezerwacyjne, dane
+    obiektu, logi (rdzeń systemu),
+  \item \texttt{apps/content} -- treści marketingowe: wpisy blogowe i~atrakcje.
+\end{itemize}
+
+\subsection{Środowisko uruchomieniowe (Docker Compose)}
+
+Całość jest skonteneryzowana. Plik \texttt{docker-compose.yml} definiuje trzy serwisy:
+
+\begin{lstlisting}[style=yamlstyle, caption={Trzy serwisy aplikacji (fragment docker-compose.yml)}]
+services:
+  db:        # PostgreSQL 16 + healthcheck + wolumen postgres_data
+    image: postgres:16
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d u_alchemika"]
+  web:       # aplikacja Django
+    build: ./backend
+    ports: ["8000:8000"]
+    depends_on:
+      db:      { condition: service_healthy }
+      mailhog: { condition: service_started }
+  mailhog:   # przechwytywanie poczty (SMTP 1025, UI 8025)
+    image: mailhog/mailhog:latest
+    ports: ["1025:1025", "8025:8025"]
+volumes:
+  postgres_data:
+\end{lstlisting}
+
+Serwis \texttt{web} startuje dopiero po przejściu healthchecku bazy. Przy starcie
+kontener wykonuje automatycznie migracje oraz kompilację tłumaczeń, a~następnie
+uruchamia serwer deweloperski:
+
+\begin{lstlisting}[style=consolestyle, caption={Polecenie startowe kontenera (Dockerfile)}]
+python manage.py migrate \
+  && (python manage.py compilemessages || echo 'brak katalogow tlumaczen, pomijam') \
+  && python manage.py runserver 0.0.0.0:8000
+\end{lstlisting}
+
+Komunikacja między kontenerami odbywa się po wewnętrznej sieci bridge Dockera --
+serwis \texttt{web} łączy się z~bazą po nazwie \texttt{db} (wewnętrzny DNS Dockera),
+a~na zewnątrz wystawione są jedynie zmapowane porty.
+
+\subsection{Bezpieczeństwo i konfiguracja}
+
+\begin{itemize}[nosep]
+  \item Dane wrażliwe (klucz, dostęp do bazy) wczytywane są ze zmiennych
+    środowiskowych przez \texttt{python-decouple} -- brak sekretów w~kodzie.
+  \item Ochrona CSRF (token w~każdym formularzu, \texttt{CsrfViewMiddleware}).
+  \item Hashowanie haseł i~walidatory siły hasła (\texttt{AUTH\_PASSWORD\_VALIDATORS}).
+  \item Automatyczne escapowanie zmiennych w~szablonach (ochrona przed XSS).
+\end{itemize}
+
+% ===================== ZAGADNIENIA =====================
+\section{Wdrożone zagadnienia kwalifikacyjne}
+\label{sec:zagadnienia}
+
+Spośród 20 zagadnień kwalifikacyjnych wdrożono \textbf{18}, co zgodnie z~tabelą
+oceniania ustala pułap oceny za pracę projektową na \textbf{5{,}0}. Poniższa tabela
+podsumowuje stan realizacji, a~dalsze podsekcje opisują każde zagadnienie wraz
+z~odniesieniem do kodu.
+
+\subsection{Tabela zbiorcza}
+
+\begin{longtable}{c p{0.30\linewidth} c p{0.42\linewidth}}
+\toprule
+\textbf{\#} & \textbf{Zagadnienie} & \textbf{Status} & \textbf{Dowód w~kodzie} \\
+\midrule
+\endhead
+1  & framework MVC             & \ok & Django 4.2 (MVT) \\
+2  & framework CSS             & \ok & Bootstrap 5.3 (CDN) \\
+3  & baza danych               & \ok & PostgreSQL 16 (kontener \texttt{db}) \\
+4  & cache                     & \ok & \texttt{cache.get/set}, \texttt{@cache\_page} \\
+5  & dependency manager        & \ok & pip + \texttt{requirements.txt} \\
+6  & HTML                      & \ok & szablony + dziedziczenie \texttt{base.html} \\
+7  & CSS                       & \ok & własny \texttt{style.css} + Bootstrap \\
+8  & JavaScript                & \ok & \texttt{inquiry.js}, lightbox galerii \\
+9  & routing                   & \ok & \texttt{urls.py}, pretty URLs, \texttt{<slug>} \\
+10 & ORM                       & \ok & modele, \texttt{prefetch/select\_related} \\
+11 & uwierzytelnianie          & \ok & \texttt{LoginView}, \texttt{@login\_required} \\
+12 & lokalizacja               & \ok & przełącznik PL/DE, \texttt{\{\% trans \%\}} \\
+13 & mailing                   & \ok & \texttt{send\_mail} $\to$ MailHog \\
+14 & formularze                & \ok & \texttt{InquiryForm(ModelForm)} + walidacje \\
+15 & asynchroniczne interakcje & \ok & HTMX (partiale HTML) \\
+16 & konsumpcja API            & \no & niewdrożone (świadoma luka) \\
+17 & publikacja API            & \no & niewdrożone (świadoma luka) \\
+18 & RWD                       & \ok & viewport + siatka Bootstrap + media queries \\
+19 & logger                    & \ok & \texttt{LOGGING} + \texttt{logger.*} \\
+20 & deployment                & \ok & Docker Compose (web+db+mailhog) \\
+\midrule
+\multicolumn{2}{r}{\textbf{Suma zaliczonych:}} & \multicolumn{2}{l}{\textbf{18 / 20 $\Rightarrow$ pułap 5{,}0}} \\
+\bottomrule
+\end{longtable}
+
+\subsection{Framework MVC (\#1)}
+Backend oparto na \textbf{Django 4.2} w~architekturze MVT (omówionej
+w~sekcji~\ref{sec:technologiczny}). Przepływ: \texttt{urls.py} $\to$ widok $\to$
+ORM $\to$ szablon $\to$ HTML.
+
+\subsection{Framework CSS (\#2), HTML (\#6), CSS (\#7)}
+Warstwę prezentacji oparto na \textbf{Bootstrap 5.3} (siatka responsywna,
+komponenty: karty, przyciski, alerty, tabela, klasy walidacji formularza)
+uzupełnionym o~własny arkusz \texttt{static/css/style.css} nadający charakter marce
+(navbar z~logo, sekcja hero, karty pokoi, galeria). Szablony HTML wykorzystują
+\textbf{dziedziczenie}: wspólny \texttt{base.html} zawiera nawigację i~stopkę,
+a~podstrony nadpisują blok treści. Powtarzalne fragmenty (formularz, polecane pokoje)
+wydzielono do partiali dołączanych przez \texttt{\{\% include \%\}} -- zero duplikacji.
+
+\subsection{Baza danych (\#3) i ORM (\#10)}
+Dane przechowuje \textbf{PostgreSQL 16} w~osobnym kontenerze. Dostęp realizuje
+wyłącznie \textbf{Django ORM} -- bez ręcznego SQL. Zastosowano optymalizację zapytań
+przeciw problemowi N+1:
+
+\begin{lstlisting}[style=pythonstyle, caption={Optymalizacja zapytań ORM (views/rooms.py, views/inquiries.py)}]
+# Lista pokoi: jedno dodatkowe zapytanie zamiast N (relacja 1:N)
+Room.objects.filter(is_active=True).prefetch_related("images")
+
+# Szczegoly pokoju: zdjecia + udogodnienia (1:N oraz M:N)
+Room.objects.prefetch_related("images", "amenities")
+
+# Panel zapytan: JOIN z pokojem jednym zapytaniem (FK "w przod")
+Inquiry.objects.select_related("room").order_by("-created_at")
+\end{lstlisting}
+
+Model relacyjny (encje, klucze obce, relacja M:N przez tabelę pośrednią, indeksy
+i~migracje) opisano szczegółowo w~dokumentacji bazy danych.
+
+\subsection{Cache (\#4)}
+Skonfigurowano backend \texttt{LocMemCache}. Buforowanie zastosowano w~dwóch
+wariantach:
+
+\begin{lstlisting}[style=pythonstyle, caption={Dwa wzorce cache (views/inquiries.py)}]
+# 1. Cache niskopoziomowy - dane kontaktowe (rzadko sie zmieniaja)
+prop = cache.get("property_info_contact")
+if prop is None:
+    prop = PropertyInfo.objects.first()
+    cache.set("property_info_contact", prop, timeout=60 * 15)  # 15 min
+
+# 2. Cache calej strony - dekorator
+@cache_page(60 * 30)   # strona /obiekt/ buforowana na 30 minut
+def property_info(request): ...
+\end{lstlisting}
+
+W~zależnościach znajduje się \texttt{django-redis} jako gotowa alternatywa
+(drop-in) umożliwiająca współdzielenie cache między procesami w~środowisku
+produkcyjnym.
+
+\subsection{Dependency manager (\#5)}
+Zależności deklaruje \texttt{backend/requirements.txt} z~kontrolą wersji
+(\texttt{Django>=4.2,<5.0}, \texttt{psycopg2-binary}, \texttt{python-decouple},
+\texttt{django-redis==5.4.0}). Instalacja (\texttt{pip install -r requirements.txt})
+odbywa się automatycznie podczas budowy obrazu Docker, co gwarantuje powtarzalne
+i~identyczne środowisko u~każdego członka zespołu i~na serwerze.
+
+\subsection{JavaScript (\#8)}
+Skrypt \texttt{static/core/js/inquiry.js} wzbogaca formularz zapytania: licznik
+znaków pola wiadomości, walidacja dat po stronie klienta (minimalna data = dziś,
+data wyjazdu po przyjeździe) oraz ponowne podpięcie zdarzeń po asynchronicznej
+podmianie formularza przez HTMX (zdarzenie \texttt{htmx:afterSwap}). Galeria zdjęć
+obsługuje powiększanie obrazów (lightbox) z~zamykaniem klawiszem \texttt{Esc}.
+
+\subsection{Routing i pretty URLs (\#9)}
+Routing jest hierarchiczny -- główny \texttt{config/urls.py} deleguje przez
+\texttt{include()} do plików \texttt{urls.py} poszczególnych aplikacji. Zastosowano
+\textbf{pretty URLs} z~konwerterem \texttt{<slug:slug>} oraz trasy \textbf{nazwane}
+z~przestrzeniami nazw (\texttt{core:}, \texttt{content:}).
+
+\begin{lstlisting}[style=pythonstyle, caption={Routing aplikacji core (apps/core/urls.py)}]
+app_name = "core"
+urlpatterns = [
+    path("",                     rooms.index,       name="index"),
+    path("pokoje/",              rooms.room_list,   name="room_list"),
+    path("pokoje/<slug:slug>/",  rooms.room_detail, name="room_detail"),
+    path("galeria/",             rooms.gallery,     name="gallery"),
+    path("zapytanie/",           inquiry_create,    name="inquiry-create"),
+    path("kontakt/",             contact,           name="contact"),
+    path("panel/zapytania/",     inquiry_list,      name="inquiry-list"),
+]
+\end{lstlisting}
+
+Dzięki nazwanym trasom szablony nie zawierają adresów na sztywno
+(np. \texttt{\{\% url 'core:room\_detail' room.slug \%\}}), co umożliwia zmianę
+ścieżki w~jednym miejscu.
+
+\subsection{Uwierzytelnianie (\#11)}
+Wykorzystano wbudowany system Django: \texttt{LoginView}/\texttt{LogoutView}, model
+\texttt{auth.User}, hashowanie haseł i~walidatory ich siły. Panel zapytań jest
+chroniony dekoratorem \texttt{@login\_required} -- próba wejścia bez sesji skutkuje
+przekierowaniem na \texttt{/login/} z~parametrem \texttt{next}.
+
+\begin{lstlisting}[style=pythonstyle, caption={Ochrona panelu obsługi (views/inquiries.py)}]
+@login_required(login_url="login")
+def inquiry_list(request):
+    inquiries = Inquiry.objects.select_related("room").order_by("-created_at")
+    return render(request, "core/inquiry_list.html", {"inquiries": inquiries})
+\end{lstlisting}
+
+\subsection{Lokalizacja (\#12)}
+Zaimplementowano pełne i18n z~przełącznikiem \textbf{PL/DE} w~pasku nawigacji.
+Konfiguracja obejmuje \texttt{LANGUAGES=[pl, de]}, \texttt{LocaleMiddleware}
+oraz \texttt{LOCALE\_PATHS}. Przełączanie języka realizuje wbudowany widok
+\texttt{set\_language} (wybór zapisywany w~cookie \texttt{django\_language}),
+bez prefiksów w~URL -- adresy pozostają niezmienione.
+
+\begin{lstlisting}[style=djangostyle, caption={Przełącznik języka w nawigacji (base.html)}]
+<form action="{% url 'set_language' %}" method="post" class="lang-switch">
+  {% csrf_token %}
+  <input name="next" type="hidden" value="{{ request.path }}">
+  <button name="language" value="pl" class="lang-btn ...">PL</button>
+  <button name="language" value="de" class="lang-btn ...">DE</button>
+</form>
+\end{lstlisting}
+
+Teksty interfejsu oznaczono \texttt{\{\% trans \%\}}/\texttt{\{\% blocktrans \%\}}
+w~szablonach oraz \texttt{gettext}/\texttt{gettext\_lazy} w~kodzie Pythona (etykiety
+formularza, komunikaty, walidacje). Tłumaczenia niemieckie przechowuje katalog
+\texttt{backend/locale/de/LC\_MESSAGES/django.po}, kompilowany do binarnego
+\texttt{.mo} przy starcie kontenera. Zakresem tłumaczenia objęto interfejs aplikacji;
+treść redakcyjna z~bazy (opisy pokoi, wpisy) pozostaje w~języku polskim.
+
+\subsection{Mailing (\#13)}
+Po zapisaniu zapytania system wysyła e-mail potwierdzający na adres gościa.
+W~środowisku lokalnym SMTP skierowano do \textbf{MailHog} (kontener przechwytuje
+pocztę, podgląd pod \texttt{http://localhost:8025}). Treść maila pochodzi
+z~szablonu, a~ewentualny błąd wysyłki jest przechwytywany i~logowany, nie przerywając
+zapisu zapytania.
+
+\begin{lstlisting}[style=pythonstyle, caption={Wysyłka potwierdzenia (views/inquiries.py)}]
+def _send_inquiry_confirmation(inquiry):
+    body = render_to_string("core/emails/inquiry_confirmation.txt", {"inquiry": inquiry})
+    try:
+        send_mail(subject=..., message=body, from_email="noreply@u-alchemika.pl",
+                  recipient_list=[inquiry.email], fail_silently=False)
+        logger.info("E-mail wyslany na %s", inquiry.email)
+    except Exception as exc:
+        logger.error("Blad wysylki e-maila dla zapytania #%d: %s", inquiry.pk, exc)
+\end{lstlisting}
+
+\subsection{Formularze (\#14)}
+\texttt{InquiryForm} dziedziczy po \texttt{forms.ModelForm} -- pola generowane są
+z~modelu \texttt{Inquiry}, bez dublowania definicji. Walidacja działa na wielu
+poziomach: typy pól (np. \texttt{EmailField}), reguły formularza oraz reguła modelu.
+
+\begin{lstlisting}[style=pythonstyle, caption={Walidacja wielopoziomowa (forms.py)}]
+def clean_date_from(self):
+    date_from = self.cleaned_data.get("date_from")
+    if date_from and date_from < timezone.localdate():
+        raise forms.ValidationError(_("Data przyjazdu nie moze byc w przeszlosci."))
+    return date_from
+
+def clean(self):
+    cleaned = super().clean()
+    date_from, date_to = cleaned.get("date_from"), cleaned.get("date_to")
+    if date_from and date_to:
+        if date_to <= date_from:
+            self.add_error("date_to", _("Data wyjazdu musi byc pozniejsza..."))
+        elif (date_to - date_from).days > 30:
+            self.add_error("date_to", _("Pobyt nie moze trwac dluzej niz 30 dni."))
+    return cleaned
+\end{lstlisting}
+
+Każdy formularz zabezpieczony jest tokenem CSRF (\texttt{\{\% csrf\_token \%\}}).
+
+\subsection{Asynchroniczne interakcje (\#15)}
+Wysłanie formularza zapytania jest asynchroniczne dzięki \textbf{HTMX}. Formularz
+deklaruje atrybuty \texttt{hx-post}, \texttt{hx-target}, \texttt{hx-swap}. Widok
+rozpoznaje żądanie po nagłówku \texttt{HX-Request} i~zwraca \textbf{fragment HTML}
+(nie JSON): przy sukcesie sekcję podziękowania, przy błędzie ten sam formularz
+z~komunikatami przy polach.
+
+\begin{lstlisting}[style=pythonstyle, caption={Obsługa żądania HTMX (views/inquiries.py)}]
+if form.is_valid():
+    inquiry = form.save()
+    _send_inquiry_confirmation(inquiry)
+    if request.headers.get("HX-Request"):
+        return render(request, "core/_inquiry_success.html", {"inquiry": inquiry})
+    ...
+else:
+    if request.headers.get("HX-Request"):
+        return render(request, "core/_inquiry_form.html", {"form": form})
+\end{lstlisting}
+
+\subsection{RWD (\#18)}
+Responsywność zapewnia meta \texttt{viewport}, responsywna siatka Bootstrap (karty
+pokoi: 3~w~rzędzie $\to$ 1~na telefonie) oraz własne media queries w~\texttt{style.css}.
+Pasek nawigacji wraz z~przełącznikiem języka zawija się na węższych ekranach,
+a~przełącznik PL/DE ląduje na osobnej, wyśrodkowanej linii.
+
+\subsection{Logger (\#19)}
+Skonfigurowano \texttt{LOGGING} (handler konsolowy, formatter, logger \texttt{apps}
+na poziomie INFO). Rejestrowane są kluczowe zdarzenia biznesowe: nowe zapytanie
+(\texttt{info}), nieprawidłowy formularz (\texttt{warning}), nieudana wysyłka maila
+(\texttt{error}) oraz dostęp do panelu zapytań.
+
+\begin{lstlisting}[style=pythonstyle, caption={Logowanie zdarzeń (views/inquiries.py)}]
+logger.info("Nowe zapytanie #%d od %s <%s> na pokoj '%s' (%s-%s)",
+            inquiry.pk, inquiry.full_name, inquiry.email,
+            inquiry.room, inquiry.date_from, inquiry.date_to)
+\end{lstlisting}
+
+\subsection{Deployment (\#20)}
+Wdrożenie realizuje \textbf{Docker Compose} (serwisy \texttt{web}, \texttt{db},
+\texttt{mailhog}). Uruchomienie sprowadza się do jednej komendy
+\texttt{docker compose up --build}; migracje i~kompilacja tłumaczeń wykonują się
+automatycznie. Szczegóły w~sekcji~\ref{sec:uruchomienie}.
+
+\subsection{Zagadnienia niewdrożone (\#16, \#17)}
+Świadomie pominięto \textbf{konsumpcję API} (\#16) oraz \textbf{publikację API}
+(\#17). Przy 18 zaliczonych zagadnieniach pułap oceny wynosi już 5{,}0, więc dalsze
+rozszerzanie zakresu nie wpływa na ocenę. Naturalnym kierunkiem rozbudowy byłoby:
+dla \#16 -- pobranie mapy (np. Leaflet) lub danych pogodowych na stronie atrakcji;
+dla \#17 -- prosty endpoint \texttt{/api/pokoje/} zwracający listę pokoi jako JSON
+(\texttt{JsonResponse}, nawet bez Django REST Framework).
+
+% ===================== INSTRUKCJA URUCHOMIENIA =====================
+\section{Instrukcja uruchomienia systemu}
+\label{sec:uruchomienie}
+
+\subsection{Wymagania wstępne}
+
+\begin{itemize}[nosep]
+  \item Docker Engine $\geq$ 24 oraz Docker Compose V2,
+  \item Git,
+  \item wolne porty: \texttt{8000} (web), \texttt{5432} (db), \texttt{8025}/\texttt{1025} (MailHog).
+\end{itemize}
+
+\subsection{Uruchomienie lokalne (Docker)}
+
+\begin{lstlisting}[style=consolestyle, caption={Pierwsze uruchomienie}]
+# 1. Klonowanie repozytorium
+git clone https://github.com/Bulileusz/u-alchemika-system.git
+cd u-alchemika-system
+
+# 2. Uruchomienie kontenerow (migracje i kompilacja tlumaczen - automatycznie)
+docker compose up --build
+
+# 3. (Nowe okno) Zaladowanie danych testowych
+docker compose exec web python manage.py loaddata seed
+
+# 4. Utworzenie konta administratora (do panelu i /admin/)
+docker compose exec web python manage.py createsuperuser
+\end{lstlisting}
+
+Po uruchomieniu dostępne są:
+\begin{itemize}[nosep]
+  \item witryna publiczna: \texttt{http://localhost:8000/},
+  \item panel administracyjny: \texttt{http://localhost:8000/admin/},
+  \item skrzynka MailHog (podgląd maili): \texttt{http://localhost:8025/}.
+\end{itemize}
+
+\subsection{Zatrzymanie i reset}
+
+\begin{lstlisting}[style=consolestyle, caption={Zatrzymanie kontenerów}]
+docker compose down        # zatrzymanie (dane zachowane)
+docker compose down -v      # zatrzymanie + reset bazy (usuwa wolumen)
+\end{lstlisting}
+
+\subsection{Uruchomienie zdalne (środowisko produkcyjne)}
+
+Konteneryzacja sprawia, że wdrożenie na serwer (VPS / chmura) sprowadza się do
+uruchomienia tego samego \texttt{docker compose} na maszynie zdalnej. Względem
+konfiguracji deweloperskiej należy wprowadzić następujące zmiany produkcyjne:
+
+\begin{longtable}{p{0.30\linewidth}p{0.62\linewidth}}
+\toprule
+\textbf{Element} & \textbf{Zmiana produkcyjna} \\
+\midrule
+\endhead
+\texttt{DEBUG} & ustawić na \texttt{False}. \\
+\texttt{DJANGO\_SECRET\_KEY} & wygenerować długi, losowy klucz i~podać przez zmienną środowiskową. \\
+\texttt{DJANGO\_ALLOWED\_HOSTS} & wpisać domenę/IP serwera. \\
+Serwer WWW & zastąpić \texttt{runserver} serwerem produkcyjnym (np. Gunicorn) za reverse proxy (np. Nginx). \\
+Pliki statyczne & wykonać \texttt{collectstatic} i~serwować je przez Nginx (lub WhiteNoise). \\
+Poczta & zastąpić MailHog realnym serwerem SMTP (dane z~env). \\
+Baza danych & użyć trwałego wolumenu lub zarządzanej usługi PostgreSQL; ustawić silne hasło. \\
+HTTPS & skonfigurować certyfikat TLS (np. Let's Encrypt) na reverse proxy. \\
+\bottomrule
+\end{longtable}
+
+Przykładowa sekwencja wdrożenia na serwerze zdalnym:
+
+\begin{lstlisting}[style=consolestyle, caption={Wdrożenie na serwerze zdalnym}]
+# Na serwerze (z zainstalowanym Dockerem):
+git clone https://github.com/Bulileusz/u-alchemika-system.git
+cd u-alchemika-system
+
+# Ustawienie zmiennych produkcyjnych (przyklad)
+export DJANGO_SECRET_KEY="<dlugi-losowy-klucz>"
+export DEBUG=False
+export DJANGO_ALLOWED_HOSTS="u-alchemika.example.com"
+
+# Uruchomienie w tle
+docker compose up --build -d
+
+# Zebranie plikow statycznych i konto administratora
+docker compose exec web python manage.py collectstatic --noinput
+docker compose exec web python manage.py createsuperuser
+\end{lstlisting}
+
+\noindent\textit{Uwaga: bieżąca wersja repozytorium jest skonfigurowana pod
+środowisko deweloperskie (serwer \texttt{runserver}, MailHog, domyślne sekrety).
+Powyższa instrukcja opisuje kroki konieczne do bezpiecznego wdrożenia produkcyjnego.}
+
+\subsection{Polecenia pomocnicze}
+
+\begin{lstlisting}[style=consolestyle, caption={Migracje, testy, podgląd bazy}]
+# Stan migracji / rollback
+docker compose exec web python manage.py showmigrations
+docker compose exec web python manage.py migrate core 0002
+
+# Testy
+docker compose exec web python manage.py test
+
+# Podglad tabel w bazie
+docker compose exec db psql -U postgres -d u_alchemika -c "\dt"
+\end{lstlisting}
+
+% ===================== WNIOSKI =====================
+\section{Wnioski projektowe}
+\label{sec:wnioski}
+
+\begin{enumerate}[leftmargin=*]
+  \item \textbf{Framework przyspiesza i~porządkuje pracę.} Wybór Django pozwolił
+    skupić się na logice biznesowej obiektu noclegowego zamiast na „hydraulice”
+    (routing, ORM, formularze, panel admina, bezpieczeństwo). Mechanizmy gotowe
+    z~pudełka (CSRF, hashowanie haseł, escapowanie XSS) podniosły bezpieczeństwo
+    bez dodatkowego nakładu.
+
+  \item \textbf{Konteneryzacja eliminuje problem „u mnie działa”.} Docker Compose
+    zapewnił identyczne, powtarzalne środowisko dla całego zespołu i~uprościł
+    ścieżkę do wdrożenia zdalnego -- ten sam plik kompozycji działa lokalnie
+    i~na serwerze.
+
+  \item \textbf{Dobór technologii proporcjonalny do skali.} Zamiast ciężkiego
+    frameworka frontendowego (React) wybrano HTMX, który dokłada asynchroniczność
+    do szablonów serwerowych przy minimalnym koszcie. Dla pojedynczego
+    interaktywnego formularza było to rozwiązanie adekwatne.
+
+  \item \textbf{Świadome ograniczenie zakresu.} Rezygnacja z~pełnej rezerwacji
+    online oraz z~tłumaczenia treści redakcyjnej pozwoliła dostarczyć kompletny,
+    dopracowany zakres zamiast wielu niedokończonych funkcji. Analogicznie, przy
+    18~zaliczonych zagadnieniach (pułap 5{,}0) świadomie pominięto zagadnienia
+    API, które nie wnoszą wartości do tego konkretnego systemu.
+
+  \item \textbf{Optymalizacja wydajności ma znaczenie już na małej skali.}
+    Zastosowanie \texttt{prefetch\_related}/\texttt{select\_related} oraz cache dla
+    danych rzadko zmienianych pokazało, jak prostymi środkami ogranicza się liczbę
+    zapytań do bazy.
+
+  \item \textbf{Kierunki rozbudowy.} Naturalne rozszerzenia to: wdrożenie
+    produkcyjne za reverse proxy z~HTTPS, dodanie konsumpcji i~publikacji API
+    (\#16, \#17), pełne tłumaczenie treści (\texttt{django-modeltranslation}) oraz
+    podpięcie współdzielonego cache Redis (zależność jest już dołączona).
+\end{enumerate}
+
+\vspace{1cm}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+\textbf{Metryka projektu} & \textbf{Wartość} \\
+\midrule
+Aplikacje Django           & 2 (core, content) \\
+Strony publiczne           & 10 \\
+Zaliczone zagadnienia      & 18 / 20 \\
+Pułap oceny za projekt     & 5{,}0 \\
+Serwisy kontenerów         & 3 (web, db, mailhog) \\
+Obsługiwane języki         & 2 (PL, DE) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
